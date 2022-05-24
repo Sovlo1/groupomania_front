@@ -1,0 +1,30 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(245, 245, 245);
+    height: 80px;
+    img {
+        height: 100%;
+        &:hover {
+            background-color: rgb(241, 241, 241);
+            cursor: pointer;
+        }
+    }
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    li {
+        border-radius: 3px;
+        padding: 10px;
+        margin: 10px;
+        list-style-type: none;
+        background-color: var(--light-accent);
+        &:hover {
+            cursor: pointer;
+            transition: 1s;
+            background-color: var(--primary);
+        }
+    }
+}

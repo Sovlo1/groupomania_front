@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <div class="form-group flex-center">
+        <label>Email</label>
+        <input type="email" formControlName="email">
+    </div>
+    <div class="form-group flex-center">
+        <label>Mot de passe</label>
+        <input type="password" formControlName="password">
+    </div>
+    <button class="btn">Se connecter</button>
+</form>

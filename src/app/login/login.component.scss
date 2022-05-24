@@ -1,0 +1,10 @@
+.form-group {
+    &:first-child {
+        margin-top: 25%;
+    }
+    margin: 5px auto;
+}
+
+label {
+    font-weight: 500;
+}
