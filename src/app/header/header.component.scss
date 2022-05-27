@@ -1,12 +1,15 @@
 nav {
+    position: sticky;
+    top: 0px;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(245, 245, 245);
+    background-color: var(--secondary);
     height: 80px;
+    width: 100%;
     img {
+        padding: 3px 0px 3px 3px;
         height: 100%;
         &:hover {
-            background-color: rgb(241, 241, 241);
             cursor: pointer;
         }
     }

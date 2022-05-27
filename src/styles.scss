@@ -1,10 +1,11 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 
 html,
 body {
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Lato", sans-serif;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -13,6 +14,7 @@ body {
 :root {
     --primary: #fd2d01;
     --secondary: #ffd7d7;
+    --ternary: #4e5166;
     --light-accent: #ff9367;
     --dark-accent: #970000;
 }
@@ -49,4 +51,9 @@ input {
 
 label {
     margin: 0px 0px 5px 5px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
 }

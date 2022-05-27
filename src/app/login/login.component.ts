@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +12,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
-      name: [null, Validators.required],
-      firstName: [null, Validators.required],
       password: [null, Validators.required],
     });
   }
 
   submit(): void {
-    console.log(this.loginForm);
+    const email = this.loginForm.get('email')!.value;
+    const password = this.loginForm.get('password')!.value;
+    this.auth
+      .logUser(email, password)
+      .pipe(
+        tap((user) => {
+          console.log(user);
+          this.router.navigate(['../home']);
+        }),
+        catchError((error) => {
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 }
