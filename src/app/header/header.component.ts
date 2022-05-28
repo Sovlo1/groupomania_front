@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnInit {
   auth$!: Observable<boolean>;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, public router: Router) {}
 
   ngOnInit(): void {
     this.auth$ = this.auth.auth$;

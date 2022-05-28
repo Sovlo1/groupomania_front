@@ -1,8 +1,13 @@
 <nav>
-    <img src="../../assets/images/icon-left-font-monochrome-black.svg" alt="logo de groupomania">
+    <span *ngIf="!(auth$ | async)" routerLink="/">
+        <img src="../../assets/images/icon-left-font-monochrome-white.svg" alt="logo de groupomania">
+    </span>
+    <span *ngIf="auth$ | async" routerLink="home">
+        <img src="../../assets/images/icon-left-font-monochrome-white.svg" alt="logo de groupomania">
+    </span>
     <ul>
-        <li *ngIf="!(auth$ | async)" routerLink="signup">Inscription</li>
-        <li *ngIf="!(auth$ | async)" routerLink="login">Connexion</li>
+        <li *ngIf="!(auth$ | async) && !(router.url === '/')" routerLink="signup">Inscription</li>
+        <li *ngIf="!(auth$  | async) && !(router.url === '/')" routerLink="login">Connexion</li>
         <li (click)="logout()" *ngIf="auth$ | async">Se déconnecter</li>
     </ul>
 </nav>
