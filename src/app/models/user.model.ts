@@ -4,9 +4,10 @@ export interface User {
   firstName?: string;
   lastName?: string;
   password?: string;
+  profilePicUrl?: string | null;
   isAdmin?: boolean;
   isMod?: boolean;
   createdAt?: string;
   updatedAt?: string;
-  deletedAt?: string;
+  deletedAt?: string | null;
 }

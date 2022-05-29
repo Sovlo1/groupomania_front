@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
+  public id?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         tap((user) => {
           console.log(user);
-          this.router.navigate(['../home']);
+          this.router.navigate(['../home/']);
         }),
         catchError((error) => {
           return EMPTY;

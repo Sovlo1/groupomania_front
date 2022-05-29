@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, tap } from 'rxjs';
 import { Post } from '../models/post.model';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,10 @@ import { AuthService } from './auth.service';
 export class PostsService {
   posts$ = new Subject<Post[]>();
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   getPosts() {
-    this.http
+    return this.http
       .get<Post[]>('http://localhost:3000/api/post/posts')
       .pipe(
         tap((posts: Post[]) => {

@@ -19,6 +19,7 @@ import { NewPostComponent } from './main-container/new-post/new-post.component';
 import { Interceptor } from './http.interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { ConnectContainerComponent } from './connect-container/connect-container.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ConnectContainerComponent } from './connect-container/connect-container
     UserInfoComponent,
     NewPostComponent,
     ConnectContainerComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
