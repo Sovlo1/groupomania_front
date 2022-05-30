@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -23,6 +23,14 @@ export class NewPostComponent implements OnInit {
       title: [null, [Validators.required, Validators.email]],
       content: [null, Validators.required],
     });
+  }
+
+  leaveForm(): void {
+    this.router.navigate(['../home']);
+  }
+
+  stayOnForm($event: Event) {
+    $event.stopPropagation();
   }
 
   submit(): void {

@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  public users$!: Observable<User>;
+  public id?: string;
 
-  constructor() { }
+  constructor(private users: UsersService, private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.users$ = this.users.users$;
+    this.id = this.auth.getUserId();
+    this.users.getUserInfos(this.id);
   }
-
 }

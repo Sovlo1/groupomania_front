@@ -5,6 +5,7 @@ import { NewPostComponent } from './main-container/new-post/new-post.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { SignupComponent } from './connect-container/signup/signup.component';
 import { ConnectContainerComponent } from './connect-container/connect-container.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const ROUTES: Routes = [
   {
@@ -18,7 +19,12 @@ export const ROUTES: Routes = [
   {
     path: 'home',
     component: MainContainerComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [{ path: 'new', component: NewPostComponent }],
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    // canActivate: [AuthGuard],
   },
 ];
