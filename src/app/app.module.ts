@@ -20,6 +20,8 @@ import { Interceptor } from './http.interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { ConnectContainerComponent } from './connect-container/connect-container.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
+import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     NewPostComponent,
     ConnectContainerComponent,
     UserProfileComponent,
+    UserUpdateComponent,
+    UserRemoveComponent,
   ],
   imports: [
     BrowserModule,

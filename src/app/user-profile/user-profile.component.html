@@ -1,13 +1,13 @@
 <div *ngIf="users$ | async as user" class="container">
     <div class="profile-picture">
         <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
-        <button class="btn">Changer l'image de profil</button>
     </div>
     <div class="user-infos">
         <h2>{{user.firstName}}</h2>
         <h3>{{user.lastName}}</h3>
         <p>{{user.email}}</p>
-        <button class="btn">Modifier le mot de passe</button>
-        <button class="btn">Supprimer le compte</button>
+        <button class="btn" routerLink="update">Modifier le profil</button>
+        <button class="btn" routerLink="delete">Supprimer le compte</button>
     </div>
 </div>
+<router-outlet></router-outlet>

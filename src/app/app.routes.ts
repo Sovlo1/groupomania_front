@@ -6,6 +6,8 @@ import { AuthGuard } from './services/auth-guard.service';
 import { SignupComponent } from './connect-container/signup/signup.component';
 import { ConnectContainerComponent } from './connect-container/connect-container.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
+import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 
 export const ROUTES: Routes = [
   {
@@ -19,12 +21,16 @@ export const ROUTES: Routes = [
   {
     path: 'home',
     component: MainContainerComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [{ path: 'new', component: NewPostComponent }],
   },
   {
     path: 'profile',
     component: UserProfileComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'update', component: UserUpdateComponent },
+      { path: 'delete', component: UserRemoveComponent },
+    ],
   },
 ];
