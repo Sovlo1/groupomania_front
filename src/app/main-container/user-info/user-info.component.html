@@ -1,4 +1,5 @@
 <div *ngIf="users$ | async as user" class="user-info-box">
+    <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
     <h2>{{ user.firstName }} </h2>
     <h3>{{ user.lastName }} </h3>
 </div>

@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
       .logUser(email, password)
       .pipe(
         tap((user) => {
-          console.log(user);
           this.router.navigate(['../home/']);
         }),
         catchError((error) => {

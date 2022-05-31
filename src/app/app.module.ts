@@ -22,6 +22,7 @@ import { ConnectContainerComponent } from './connect-container/connect-container
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
+import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserRemoveComponent } from './user-profile/user-remove/user-remove.comp
     UserProfileComponent,
     UserUpdateComponent,
     UserRemoveComponent,
+    UserPasswordComponent,
   ],
   imports: [
     BrowserModule,

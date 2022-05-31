@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-remove',
-  templateUrl: './user-remove.component.html',
-  styleUrls: ['./user-remove.component.scss'],
+  selector: 'app-user-password',
+  templateUrl: './user-password.component.html',
+  styleUrls: ['./user-password.component.scss'],
 })
-export class UserRemoveComponent implements OnInit {
+export class UserPasswordComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {}

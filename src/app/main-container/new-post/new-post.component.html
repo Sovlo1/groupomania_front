@@ -1,5 +1,5 @@
-<div class="background-new-post" (click)="leaveForm()">
-    <div class="sticky-new-post" (click)="stayOnForm($event)">
+<div class="background-leave-form" (click)="leaveForm()">
+    <div class="sticky-form" (click)="stayOnForm($event)">
         <form [formGroup]="newPostForm" (ngSubmit)="submit()">
             <div class="form-group-new-post flex-center">
                 <label>Titre</label>

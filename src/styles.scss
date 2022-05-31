@@ -57,3 +57,20 @@ label {
     max-width: 1200px;
     margin: auto;
 }
+
+.background-leave-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(29, 29, 29, 0.733);
+}
+
+.sticky-form {
+    background-color: purple;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 100px auto;
+    max-width: 700px;
+}

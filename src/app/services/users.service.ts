@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -17,9 +17,7 @@ export class UsersService {
       .pipe(
         tap((user: User) => {
           this.users$.next(user);
-          console.log(user);
         })
-      )
-      .subscribe();
+      );
   }
 }

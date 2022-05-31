@@ -1,3 +1,29 @@
 .container {
     display: flex;
+    margin: 20px auto;
+}
+
+.profile-picture {
+    background-color: var(--ternary);
+    border-radius: 15px;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+img {
+    padding: 15px 15px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.user-infos {
+    flex: 1;
+    padding: 15px 15px;
+    background-color: var(--ternary);
+    border-radius: 15px;
+    margin-left: 20px;
+}
+
+.btn {
+    margin: 5px auto auto 0;
 }

@@ -12,12 +12,13 @@ import { UsersService } from 'src/app/services/users.service';
 export class UserInfoComponent implements OnInit {
   public users$!: Observable<User>;
   public id?: string;
+  public userInfos!: User;
 
   constructor(private users: UsersService, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.users$ = this.users.users$;
     this.id = this.auth.getUserId();
-    this.users.getUserInfos(this.id);
+    this.users.getUserInfos(this.id).subscribe();
   }
 }

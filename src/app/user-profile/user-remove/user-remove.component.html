@@ -1,1 +1,11 @@
-<p>user-remove works!</p>
+<div class="background-leave-form" (click)="leaveForm()">
+    <div class="sticky-form" (click)="stayOnForm($event)">
+        <form>
+            <div class="form-group-new-post flex-center">
+                <label>Mot de passe</label>
+                <input type="password" formControlName="password">
+            </div>
+            <button class="btn">Êtes vous sur de vouloir supprimer le compte? Cette action est irreversible!</button>
+        </form>
+    </div>
+</div>

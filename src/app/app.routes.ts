@@ -8,6 +8,7 @@ import { ConnectContainerComponent } from './connect-container/connect-container
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
+import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 
 export const ROUTES: Routes = [
   {
@@ -29,8 +30,9 @@ export const ROUTES: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'update', component: UserUpdateComponent },
+      { path: 'updateinfos', component: UserUpdateComponent },
       { path: 'delete', component: UserRemoveComponent },
+      { path: 'updatepassword', component: UserPasswordComponent },
     ],
   },
 ];
