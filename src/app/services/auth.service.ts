@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  auth$ = new BehaviorSubject<boolean>(false);
+  public user$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
+    null
+  );
+  public auth$ = new BehaviorSubject<boolean>(false);
   private token!: string;
   private userId!: string;
   private isMod!: boolean;
@@ -65,6 +69,16 @@ export class AuthService {
           this.isAdmin = isAdmin;
           this.isMod = isMod;
           this.auth$.next(true);
+        })
+      );
+  }
+
+  fetchCurrentUser() {
+    return this.http
+      .get<User>(`http://localhost:3000/api/auth/loggeduser`)
+      .pipe(
+        tap((user: User) => {
+          this.user$.next(user);
         })
       );
   }

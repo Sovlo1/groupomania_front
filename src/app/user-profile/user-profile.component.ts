@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
@@ -13,11 +14,16 @@ export class UserProfileComponent implements OnInit {
   public users$!: Observable<User>;
   public id?: string;
 
-  constructor(private users: UsersService, private auth: AuthService) {}
+  constructor(
+    private users: UsersService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.users$ = this.users.users$;
-    this.id = this.auth.getUserId();
-    this.users.getUserInfos(this.id).subscribe();
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.id = paramMap.get('id')!;
+      this.users.getUserInfos(this.id).subscribe();
+    });
   }
 }

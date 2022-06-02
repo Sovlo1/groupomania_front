@@ -20,4 +20,17 @@ export class UsersService {
         })
       );
   }
+
+  removeUser(id: string, password: string) {
+    const options = {
+      body: {
+        userId: id,
+        password: password,
+      },
+    };
+    return this.http.delete<User>(
+      'http://localhost:3000/api/auth/delete',
+      options
+    );
+  }
 }

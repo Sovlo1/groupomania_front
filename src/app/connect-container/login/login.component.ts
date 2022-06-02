@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
     this.auth
       .logUser(email, password)
       .pipe(
-        tap((user) => {
+        tap(() => {
           this.router.navigate(['../home/']);
         }),
         catchError((error) => {
-          return EMPTY;
+          return error;
         })
       )
       .subscribe();

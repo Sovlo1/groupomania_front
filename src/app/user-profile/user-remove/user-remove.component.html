@@ -1,6 +1,6 @@
 <div class="background-leave-form" (click)="leaveForm()">
     <div class="sticky-form" (click)="stayOnForm($event)">
-        <form>
+        <form [formGroup]="deleteUser" (ngSubmit)="submit()">
             <div class="form-group-new-post flex-center">
                 <label>Mot de passe</label>
                 <input type="password" formControlName="password">

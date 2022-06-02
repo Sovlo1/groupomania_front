@@ -12,21 +12,17 @@ export class PostsService {
   constructor(private http: HttpClient) {}
 
   getPosts() {
-    return this.http
-      .get<Post[]>('http://localhost:3000/api/post/posts')
-      .pipe(
-        tap((posts: Post[]) => {
-          this.posts$.next(posts);
-          console.log(posts);
-        })
-      )
-      .subscribe();
+    return this.http.get<Post[]>('http://localhost:3000/api/post/posts').pipe(
+      tap((posts: Post[]) => {
+        this.posts$.next(posts);
+      })
+    );
   }
 
-  addPost(title: string, content: string) {
-    return this.http.post('http://localhost:3000/api/post/new', {
-      title: title,
-      content: content,
-    });
+  addPost(post: Post, file: File) {
+    const formData = new FormData();
+    formData.append('post', JSON.stringify(post));
+    formData.append('file', file);
+    return this.http.post('http://localhost:3000/api/post/new', formData);
   }
 }

@@ -9,7 +9,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  auth$!: Observable<boolean>;
+  public auth$!: Observable<boolean>;
+  public id?: string;
 
   constructor(private auth: AuthService, public router: Router) {}
 
@@ -20,5 +21,10 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.router.navigate(['../login']);
+  }
+
+  checkProfile() {
+    this.id = this.auth.getUserId();
+    this.router.navigate(['./profile/' + this.id]);
   }
 }

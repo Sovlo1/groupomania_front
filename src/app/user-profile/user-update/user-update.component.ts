@@ -38,7 +38,8 @@ export class UserUpdateComponent implements OnInit {
   }
 
   leaveForm(): void {
-    this.router.navigate(['../profile']);
+    this.id = this.auth.getUserId();
+    this.router.navigate(['../profile/' + this.id]);
   }
 
   stayOnForm($event: Event) {

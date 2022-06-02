@@ -3,8 +3,12 @@
         <div class="posts">
             <h2>{{ post.User.firstName}} </h2>
             <h3>{{ post.title}}</h3>
+            <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
             <p>{{ post.content}} </p>
             <p>{{ post.createdAt | date}} </p>
         </div>
+        <form>
+            <input type="text" placeholder="saisir un commentaire...">
+        </form>
     </div>
 </section>

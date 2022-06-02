@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -35,12 +35,12 @@ export class SignupComponent implements OnInit {
     this.auth
       .addUser(email, password, lastName, firstName)
       .pipe(
+        switchMap(() => this.auth.logUser(email, password)),
         tap(() => {
-          this.router.navigate(['../home']);
+          this.router.navigate(['../home/']);
         }),
         catchError((error) => {
-          console.log('pouet');
-          return EMPTY;
+          return error;
         })
       )
       .subscribe();

@@ -9,6 +9,10 @@
                 <label>Message</label>
                 <input type="text" formControlName="content">
             </div>
+            <div class="form-group-new-post flex-center">
+                <label>Image/vidéo</label>
+                <input type="file" (change)="newFile($event)">
+            </div>
             <button class="btn">Envoyer!</button>
         </form>
     </div>

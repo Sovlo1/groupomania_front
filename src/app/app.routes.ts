@@ -26,7 +26,7 @@ export const ROUTES: Routes = [
     children: [{ path: 'new', component: NewPostComponent }],
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard],
     children: [
