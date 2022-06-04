@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class NewPostComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private post: PostsService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +50,9 @@ export class NewPostComponent implements OnInit {
     this.post
       .addPost(newPost, this.newPostForm.get('file')!.value)
       .pipe(
-        tap(() => {
+        tap(async () => {
           this.router.navigate(['../home']);
-          this.post.getPosts();
+          this.post.getPosts().subscribe();
         })
       )
       .subscribe();

@@ -12,6 +12,8 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  public token: string | null = window.localStorage.getItem('userToken');
+
   constructor(private auth: AuthService, private router: Router) {}
 
   // canActivate(
@@ -27,19 +29,32 @@ export class AuthGuard implements CanActivate {
   //   );
   // }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<true> {
+  canActivate(): Observable<true> {
     return this.auth.user$.pipe(
       first(),
       switchMap((user: User | null): Observable<true> => {
         if (!user) {
-          return this.auth.fetchCurrentUser().pipe(map(() => true));
+          return this.auth.fetchCurrentUser(this.token).pipe(map(() => true));
         } else {
           return of(true);
         }
       })
     );
   }
+
+  // canActivate(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot
+  // ): Observable<true> {
+  //   return this.auth.user$.pipe(
+  //     first(),
+  //     switchMap((user: User | null): Observable<true> => {
+  //       if (!user) {
+  //         return this.auth.fetchCurrentUser().pipe(map(() => true));
+  //       } else {
+  //         return of(true);
+  //       }
+  //     })
+  //   );
+  // }
 }

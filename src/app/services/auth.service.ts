@@ -11,7 +11,7 @@ export class AuthService {
     null
   );
   public auth$ = new BehaviorSubject<boolean>(false);
-  private token!: string;
+  private token!: string | null;
   private userId!: string;
   private isMod!: boolean;
   private isAdmin!: boolean;
@@ -68,14 +68,15 @@ export class AuthService {
           this.token = token;
           this.isAdmin = isAdmin;
           this.isMod = isMod;
+          window.localStorage.setItem('userToken', JSON.stringify(this.token));
           this.auth$.next(true);
         })
       );
   }
 
-  fetchCurrentUser() {
+  fetchCurrentUser(token: string | null) {
     return this.http
-      .get<User>(`http://localhost:3000/api/auth/loggeduser`)
+      .post<User>(`http://localhost:3000/api/auth/loggeduser`, { token: token })
       .pipe(
         tap((user: User) => {
           this.user$.next(user);
@@ -88,6 +89,7 @@ export class AuthService {
     this.token = '';
     this.isAdmin = false;
     this.isMod = false;
+    window.localStorage.clear();
     this.auth$.next(false);
   }
 }
