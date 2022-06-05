@@ -13,7 +13,6 @@ import { SignupComponent } from './connect-container/signup/signup.component';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainContainerComponent } from './main-container/main-container.component';
-import { PostListComponent } from './main-container/post-list/post-list.component';
 import { UserInfoComponent } from './main-container/user-info/user-info.component';
 import { NewPostComponent } from './main-container/new-post/new-post.component';
 import { Interceptor } from './http.interceptor';
@@ -23,6 +22,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
+import { PostListComponent } from './main-container/post-list/post-list.component';
 
 @NgModule({
   declarations: [

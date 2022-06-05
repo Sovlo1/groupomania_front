@@ -9,5 +9,5 @@ export class Post {
   deletedAt?: string;
   UserId?: number;
   User?: any;
-  Comments: any;
+  Comments?: any[];
 }

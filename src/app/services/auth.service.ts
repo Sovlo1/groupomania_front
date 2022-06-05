@@ -68,7 +68,7 @@ export class AuthService {
           this.token = token;
           this.isAdmin = isAdmin;
           this.isMod = isMod;
-          window.localStorage.setItem('userToken', JSON.stringify(this.token));
+          window.localStorage.setItem('userToken', this.token);
           this.auth$.next(true);
         })
       );
