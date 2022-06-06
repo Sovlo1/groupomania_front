@@ -12,10 +12,8 @@ export class CommentsService {
 
   addComment(comment: Comment, postId: number | undefined) {
     const options = {
-      body: {
-        comment: comment,
-        postId: postId,
-      },
+      comment: comment.content,
+      postId: postId,
     };
     return this.http.post('http://localhost:3000/api/comment/new', options);
   }

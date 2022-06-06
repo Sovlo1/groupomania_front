@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
         tap(() => {
           this.router.navigate(['../home/']);
         }),
-        catchError((error) => {
-          return error;
+        catchError(() => {
+          return "c'est pété";
         })
       )
       .subscribe();

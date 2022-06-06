@@ -14,9 +14,9 @@ import { CommentsService } from 'src/app/services/comments.service';
 export class PostListComponent implements OnInit {
   public postId?: number | undefined;
   public newCommentForm!: FormGroup;
-  public clicked: any = false;
+  public clicked: boolean = false;
   public commentIndex?: number;
-  public newComment: any = false;
+  public newComment: boolean = false;
   public posts$!: Observable<Post[]>;
   public postList!: Post[];
 
@@ -40,7 +40,6 @@ export class PostListComponent implements OnInit {
     this.commentIndex = index;
     this.postId = this.postList[this.commentIndex].id;
     this.newComment = true;
-    this.clicked = true;
   }
 
   submit() {
@@ -50,7 +49,10 @@ export class PostListComponent implements OnInit {
       .addComment(newComment, this.postId)
       .pipe(
         tap(async () => {
-          this.post.getPosts().subscribe();
+          this.post.getPosts().subscribe((post) => {
+            this.postList = post.reverse();
+            this.newComment = false;
+          });
         })
       )
       .subscribe();

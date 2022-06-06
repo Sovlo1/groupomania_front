@@ -6,7 +6,14 @@
             <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
             <p>{{ post.content}} </p>
             <p>{{ post.createdAt | date}} </p>
-            <div *ngIf="post.Comments"></div>
+            <div *ngIf="post.Comments!.length > 0">
+                <div class="comments" *ngFor="let comment of post.Comments!">
+                    <h4>{{ comment.UserId }} </h4>
+                    <p>{{ comment.content }} </p>
+                    <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
+                    <p>{{ comment.createdAt | date}} </p>
+                </div>
+            </div>
         </div>
         <button (click)="postComment(index)">Ajouter un
             commentaire</button>

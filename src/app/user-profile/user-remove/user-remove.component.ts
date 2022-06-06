@@ -51,8 +51,15 @@ export class UserRemoveComponent implements OnInit {
     console.log(this.deleteUser.get('password')!.value);
     this.users
       .removeUser(this.id, this.deleteUser.get('password')!.value)
+      .pipe(
+        tap(() => {
+          this.auth.logout();
+          this.router.navigate(['../../']);
+        }),
+        catchError((error) => {
+          return error;
+        })
+      )
       .subscribe();
-    this.auth.logout();
-    this.router.navigate(['../../']);
   }
 }

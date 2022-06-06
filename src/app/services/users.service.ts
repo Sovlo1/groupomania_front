@@ -33,4 +33,14 @@ export class UsersService {
       options
     );
   }
+
+  modifyUser(user: User, file: File) {
+    const formData = new FormData();
+    formData.append('user', JSON.stringify(user));
+    formData.append('file', file);
+    return this.http.put<User>(
+      'http://localhost:3000/api/auth/updateuser',
+      formData
+    );
+  }
 }

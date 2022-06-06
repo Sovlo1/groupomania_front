@@ -14,6 +14,7 @@ import { PostsService } from 'src/app/services/posts.service';
 export class NewPostComponent implements OnInit {
   public newPostForm!: FormGroup;
   public file!: File;
+  public postList?: Post[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +53,9 @@ export class NewPostComponent implements OnInit {
       .pipe(
         tap(async () => {
           this.router.navigate(['../home']);
-          this.post.getPosts().subscribe();
+          this.post.getPosts().subscribe((post) => {
+            this.postList = post.reverse();
+          });
         })
       )
       .subscribe();
