@@ -14,11 +14,11 @@ import { CommentsService } from 'src/app/services/comments.service';
 export class PostListComponent implements OnInit {
   public postId?: number | undefined;
   public newCommentForm!: FormGroup;
-  public clicked: boolean = false;
   public commentIndex?: number;
   public newComment: boolean = false;
   public posts$!: Observable<Post[]>;
   public postList!: Post[];
+  public file!: File;
 
   constructor(
     private post: PostsService,
@@ -29,24 +29,40 @@ export class PostListComponent implements OnInit {
   ngOnInit(): void {
     this.newCommentForm = this.formBuilder.group({
       content: [null, Validators.required],
+      file: [null],
     });
     this.posts$ = this.post.posts$;
     this.post.getPosts().subscribe((post) => {
       this.postList = post.reverse();
+      console.log(post);
     });
   }
 
   postComment(index: number) {
     this.commentIndex = index;
-    this.postId = this.postList[this.commentIndex].id;
     this.newComment = true;
+    this.postId = this.postList[this.commentIndex].id;
+    this.newCommentForm = this.formBuilder.group({
+      content: ['', Validators.required],
+      file: [null],
+    });
+  }
+
+  newFile(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    this.newCommentForm.get('file')!.setValue(file);
   }
 
   submit() {
+    console.log(this.postId);
     const newComment = new Comment();
     newComment.content = this.newCommentForm.get('content')!.value;
     this.comment
-      .addComment(newComment, this.postId)
+      .addComment(
+        newComment,
+        this.postId,
+        this.newCommentForm.get('file')!.value
+      )
       .pipe(
         tap(async () => {
           this.post.getPosts().subscribe((post) => {

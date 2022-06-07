@@ -1,7 +1,10 @@
 <section *ngIf="posts$ | async as posts">
     <div *ngFor="let post of posts;let index = index" class="posts-box">
         <div class="posts">
-            <h2>{{ post.User.firstName}} {{ index}}{{ post.id }} </h2>
+            <div class="posts__user">
+                <img src="{{post.User.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
+                <h2>{{ post.User.firstName}}</h2>
+            </div>
             <h3>{{ post.title}}</h3>
             <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
             <p>{{ post.content}} </p>
@@ -15,18 +18,19 @@
                 </div>
             </div>
         </div>
-        <button (click)="postComment(index)">Ajouter un
+        <button class="btn" *ngIf="!newComment || commentIndex !== index" (click)="postComment(index)">Ajouter
+            un
             commentaire</button>
         <div *ngIf="newComment && commentIndex === index">
             <form [formGroup]="newCommentForm" (ngSubmit)="submit()">
                 <div class="form-group-new-post flex-center">
-                    <label>Message {{ post.id }}</label>
+                    <label>Message</label>
                     <input type="text" formControlName="content">
                 </div>
-                <!-- <div class="form-group-new-post flex-center">
+                <div class="form-group-new-post flex-center">
                     <label>Image/vidéo</label>
                     <input type="file" (change)="newFile($event)">
-                </div> -->
+                </div>
                 <button class="btn">Envoyer!</button>
             </form>
         </div>

@@ -6,19 +6,34 @@ section {
 .posts {
     display: flex;
     flex-direction: column;
+    &-box {
+        display: flex;
+        flex-direction: column;
+        background-color: green;
+        margin: 0px 20px 20px 0px;
+        border-radius: 20px;
+        padding: 20px 15px;
+    }
+    &__user {
+        align-items: center;
+        display: flex;
+        img {
+            max-width: 48px;
+            max-height: 48px;
+            border-radius: 24px;
+        }
+    }
 }
 
-.posts-box {
-    display: flex;
-    flex-direction: column;
-    background-color: green;
-    margin: 0px 20px 20px 0px;
-    border-radius: 20px;
-    padding: 20px 15px;
+.comments {
+    background-color: yellow;
+    margin: 10px 0px 0px 0px;
+    border-radius: 10px;
+    padding: 5px 5px;
 }
 
 img {
-    max-width: 50%;
+    max-width: 100%;
     border-radius: 15px;
 }
 

@@ -19,7 +19,6 @@ export class Interceptor implements HttpInterceptor {
     const authToken = this.auth.getToken();
     const isAdmin = this.auth.getAdminStatus();
     const isMod = this.auth.getModStatus();
-    console.log(isAdmin, isMod, authToken);
     if (authToken) {
       req = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + authToken),

@@ -34,13 +34,22 @@ export class UsersService {
     );
   }
 
-  modifyUser(user: User, file: File) {
+  modifyUser(user: User, file: File, id: string) {
     const formData = new FormData();
     formData.append('user', JSON.stringify(user));
     formData.append('file', file);
+    formData.append('userId', id);
     return this.http.put<User>(
       'http://localhost:3000/api/auth/updateuser',
       formData
+    );
+  }
+
+  changePassword(user: User, id: string) {
+    const userInfos = { user, userId: id };
+    return this.http.put<User>(
+      'http://localhost:3000/api/auth/modifypassword',
+      userInfos
     );
   }
 }

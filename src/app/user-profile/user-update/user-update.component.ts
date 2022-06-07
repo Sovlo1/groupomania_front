@@ -13,6 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UserUpdateComponent implements OnInit {
   public users$!: Observable<User>;
+  public file!: File;
   public id?: string;
   public user!: User;
   public modifyUserInfos!: FormGroup;
@@ -42,6 +43,7 @@ export class UserUpdateComponent implements OnInit {
         firstName: [this.user.firstName, Validators.required],
         lastName: [this.user.lastName, Validators.required],
         email: [this.user.email, Validators.required],
+        file: [null],
       });
     });
     // this.modifyUserInfos = this.formBuilder.group({
@@ -65,16 +67,18 @@ export class UserUpdateComponent implements OnInit {
   }
 
   submit(): void {
-    const updatedUser = {
-      firstName: this.modifyUserInfos.get('firstName')!.value,
-      lastName: this.modifyUserInfos.get('lastName')!.value,
-      email: this.modifyUserInfos.get('email')!.value,
-    };
-    console.log(updatedUser);
+    const updatedUser = new User();
+    updatedUser.firstName = this.modifyUserInfos.get('firstName')!.value;
+    updatedUser.lastName = this.modifyUserInfos.get('lastName')!.value;
+    updatedUser.email = this.modifyUserInfos.get('email')!.value;
     this.users
-      .modifyUser(updatedUser, this.modifyUserInfos.get('file')!.value)
+      .modifyUser(
+        updatedUser,
+        this.modifyUserInfos.get('file')!.value,
+        this.id!
+      )
       .pipe(
-        tap(() => {
+        tap(async () => {
           this.router.navigate(['../profile/' + this.id]);
           this.users.getUserInfos(this.id!).subscribe((user) => {
             this.user = user;
