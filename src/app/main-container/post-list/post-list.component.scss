@@ -18,9 +18,10 @@ section {
         align-items: center;
         display: flex;
         img {
-            max-width: 48px;
-            max-height: 48px;
+            width: 48px;
+            height: 48px;
             border-radius: 24px;
+            object-fit: cover;
         }
     }
 }

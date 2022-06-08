@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
@@ -19,6 +27,8 @@ export class PostListComponent implements OnInit {
   public posts$!: Observable<Post[]>;
   public postList!: Post[];
   public file!: File;
+  public maxComments: number = 3;
+  public test!: number;
 
   constructor(
     private post: PostsService,
@@ -38,10 +48,22 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  postComment(index: number) {
+  updateMaxComments(index: number) {
     this.commentIndex = index;
+    console.log(this.commentIndex);
+    this.maxComments = this.maxComments + 3;
+    console.log(this.maxComments);
+  }
+
+  postComment(index: number) {
+    console.log(this.postList);
+    this.test = this.postList.length;
+    console.log(this.test);
+    this.commentIndex = index;
+    console.log(this.commentIndex);
     this.newComment = true;
     this.postId = this.postList[this.commentIndex].id;
+    console.log(this.postId);
     this.newCommentForm = this.formBuilder.group({
       content: ['', Validators.required],
       file: [null],
@@ -67,7 +89,9 @@ export class PostListComponent implements OnInit {
         tap(async () => {
           this.post.getPosts().subscribe((post) => {
             this.postList = post.reverse();
+            console.log(post);
             this.newComment = false;
+            this.commentIndex = undefined;
           });
         })
       )

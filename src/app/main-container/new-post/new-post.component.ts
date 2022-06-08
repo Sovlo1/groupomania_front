@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -14,7 +14,8 @@ import { PostsService } from 'src/app/services/posts.service';
 export class NewPostComponent implements OnInit {
   public newPostForm!: FormGroup;
   public file!: File;
-  public postList?: Post[];
+  public postList!: Post[];
+  // private postList!: Post[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +45,12 @@ export class NewPostComponent implements OnInit {
     this.newPostForm.get('file')!.setValue(file);
   }
 
+  redirectTo(uri: string) {
+    this.router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate([uri]));
+  }
+
   submit(): void {
     const newPost = new Post();
     newPost.title = this.newPostForm.get('title')!.value;
@@ -51,10 +58,11 @@ export class NewPostComponent implements OnInit {
     this.post
       .addPost(newPost, this.newPostForm.get('file')!.value)
       .pipe(
-        tap(async () => {
-          this.router.navigate(['../home']);
+        tap(() => {
+          this.post.posts$;
           this.post.getPosts().subscribe((post) => {
             this.postList = post.reverse();
+            this.redirectTo('../home');
           });
         })
       )

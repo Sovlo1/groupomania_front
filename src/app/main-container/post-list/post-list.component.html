@@ -9,13 +9,18 @@
             <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
             <p>{{ post.content}} </p>
             <p>{{ post.createdAt | date}} </p>
-            <div *ngIf="post.Comments!.length > 0">
-                <div class="comments" *ngFor="let comment of post.Comments!">
-                    <h4>{{ comment.UserId }} </h4>
-                    <p>{{ comment.content }} </p>
-                    <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
-                    <p>{{ comment.createdAt | date}} </p>
+            <div *ngIf="post.Comments!.length>0">
+                <div *ngFor="let comment of post.Comments!;index as index">
+                    <div class="comments" *ngIf="index<(maxComments-1)">
+                        <h4>{{ comment.UserId }} </h4>
+                        <p>{{ comment.content }} </p>
+                        <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
+                        <p>{{ comment.createdAt | date}} </p>
+                    </div>
                 </div>
+                <button class="btn" (click)="updateMaxComments(index)"
+                    *ngIf="post.Comments!.length>maxComments || post.Comments!.length===maxComments && commentIndex === index">Afficher
+                    plus de commentaires</button>
             </div>
         </div>
         <button class="btn" *ngIf="!newComment || commentIndex !== index" (click)="postComment(index)">Ajouter
