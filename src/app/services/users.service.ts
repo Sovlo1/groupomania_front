@@ -46,7 +46,7 @@ export class UsersService {
   }
 
   changePassword(user: User, id: string) {
-    const userInfos = { user, userId: id };
+    const userInfos = { ...user, userId: id };
     return this.http.put<User>(
       'http://localhost:3000/api/auth/modifypassword',
       userInfos

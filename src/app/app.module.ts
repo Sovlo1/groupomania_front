@@ -23,6 +23,8 @@ import { UserUpdateComponent } from './user-profile/user-update/user-update.comp
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 import { PostListComponent } from './main-container/post-list/post-list.component';
+import { EditPostComponent } from './main-container/edit-post/edit-post.component';
+import { DeletePostComponent } from './main-container/delete-post/delete-post.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { PostListComponent } from './main-container/post-list/post-list.componen
     UserUpdateComponent,
     UserRemoveComponent,
     UserPasswordComponent,
+    EditPostComponent,
+    DeletePostComponent,
   ],
   imports: [
     BrowserModule,

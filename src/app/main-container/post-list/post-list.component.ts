@@ -13,6 +13,8 @@ import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { Comment } from 'src/app/models/comment.model';
 import { CommentsService } from 'src/app/services/comments.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -29,14 +31,19 @@ export class PostListComponent implements OnInit {
   public file!: File;
   public maxComments: number = 3;
   public test!: number;
+  public id?: string;
 
   constructor(
     private post: PostsService,
     private formBuilder: FormBuilder,
-    private comment: CommentsService
+    private comment: CommentsService,
+    private auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.id = this.auth.getUserId();
     this.newCommentForm = this.formBuilder.group({
       content: [null, Validators.required],
       file: [null],
@@ -50,20 +57,13 @@ export class PostListComponent implements OnInit {
 
   updateMaxComments(index: number) {
     this.commentIndex = index;
-    console.log(this.commentIndex);
     this.maxComments = this.maxComments + 3;
-    console.log(this.maxComments);
   }
 
   postComment(index: number) {
-    console.log(this.postList);
-    this.test = this.postList.length;
-    console.log(this.test);
     this.commentIndex = index;
-    console.log(this.commentIndex);
     this.newComment = true;
-    this.postId = this.postList[this.commentIndex].id;
-    console.log(this.postId);
+    this.postId = this.postList[index].id;
     this.newCommentForm = this.formBuilder.group({
       content: ['', Validators.required],
       file: [null],
@@ -75,8 +75,33 @@ export class PostListComponent implements OnInit {
     this.newCommentForm.get('file')!.setValue(file);
   }
 
-  submit() {
-    console.log(this.postId);
+  editPost(index: number) {
+    this.postId = this.postList[index].id;
+    this.router.navigate(['edit/' + this.postId], { relativeTo: this.route });
+  }
+
+  deletePost(index: number) {
+    if (confirm('Etes vous certain de vouloir supprimer ce message?')) {
+      const userId = this.postList[index].UserId;
+      const postId = this.postList[index].id;
+      console.log(userId, postId);
+      if (this.id == userId) {
+        this.post
+          .deletePost(userId, postId)
+          .pipe(
+            tap(() => {
+              this.post.getPosts().subscribe((post) => {
+                this.postList = post.reverse();
+                console.log(post);
+              });
+            })
+          )
+          .subscribe();
+      }
+    }
+  }
+
+  submitComment() {
     const newComment = new Comment();
     newComment.content = this.newCommentForm.get('content')!.value;
     this.comment

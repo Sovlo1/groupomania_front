@@ -19,10 +19,28 @@ export class PostsService {
     );
   }
 
+  getSinglePost(id: string) {
+    return this.http.get<Post[]>('http://localhost:3000/api/post/' + id).pipe(
+      tap((post: Post[]) => {
+        this.posts$.next(post);
+      })
+    );
+  }
+
   addPost(post: Post, file: File) {
     const formData = new FormData();
     formData.append('post', JSON.stringify(post));
     formData.append('file', file);
     return this.http.post('http://localhost:3000/api/post/new', formData);
+  }
+
+  deletePost(userId: number | undefined, postId: number | undefined) {
+    const options = {
+      body: {
+        userId: userId,
+        postId: postId,
+      },
+    };
+    return this.http.delete('http://localhost:3000/api/post/delete', options);
   }
 }

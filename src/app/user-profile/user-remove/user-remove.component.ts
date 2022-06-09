@@ -47,7 +47,6 @@ export class UserRemoveComponent implements OnInit {
   submit(): void {
     this.users$ = this.users.users$;
     this.id = this.auth.getUserId();
-    console.log(this.id);
     console.log(this.deleteUser.get('password')!.value);
     this.users
       .removeUser(this.id, this.deleteUser.get('password')!.value)

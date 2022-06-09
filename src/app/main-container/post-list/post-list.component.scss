@@ -17,6 +17,7 @@ section {
     &__user {
         align-items: center;
         display: flex;
+        justify-content: space-between;
         img {
             width: 48px;
             height: 48px;
@@ -40,4 +41,30 @@ img {
 
 input {
     width: 100%;
+}
+
+.delete {
+    &__post {
+        opacity: 70%;
+        padding: 4px;
+        background-color: var(--ternary);
+        border-radius: 5px;
+        &:hover {
+            cursor: pointer;
+            opacity: 100%;
+            transition: 1s;
+        }
+    }
+    &__comment {
+        opacity: 70%;
+        padding: 4px;
+        background-color: var(--ternary);
+        font-size: 14px;
+        border-radius: 5px;
+        &:hover {
+            cursor: pointer;
+            opacity: 100%;
+            transition: 1s;
+        }
+    }
 }

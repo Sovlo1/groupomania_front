@@ -2,8 +2,18 @@
     <div *ngFor="let post of posts;let index = index" class="posts-box">
         <div class="posts">
             <div class="posts__user">
-                <img src="{{post.User.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
-                <h2>{{ post.User.firstName}}</h2>
+                <div class="d-flex flex-align-center">
+                    <img src="{{post.User.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
+                    <h2>{{ post.User.firstName}}</h2>
+                </div>
+                <div class="d-flex">
+                    <div *ngIf="id==post.UserId" class="delete__post"><i class="fa-solid fa-pen"
+                            (click)="editPost(index)"></i>
+                    </div>
+                    <div *ngIf="id==post.UserId" class="delete__post" (click)="deletePost(index)"><i
+                            class="fa-solid fa-trash"></i>
+                    </div>
+                </div>
             </div>
             <h3>{{ post.title}}</h3>
             <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
@@ -11,8 +21,13 @@
             <p>{{ post.createdAt | date}} </p>
             <div *ngIf="post.Comments!.length>0">
                 <div *ngFor="let comment of post.Comments!;index as index">
-                    <div class="comments" *ngIf="index<(maxComments-1)">
-                        <h4>{{ comment.UserId }} </h4>
+                    <div class="comments" *ngIf="(index+1)<(maxComments)">
+                        <div class="d-flex flex-align-center justify-space-between">
+                            <h4>{{ comment.UserId }} </h4>
+                            <div *ngIf="id==post.UserId" class="delete__comment" (click)="deletePost(index)"><i
+                                    class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
                         <p>{{ comment.content }} </p>
                         <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
                         <p>{{ comment.createdAt | date}} </p>
@@ -27,7 +42,7 @@
             un
             commentaire</button>
         <div *ngIf="newComment && commentIndex === index">
-            <form [formGroup]="newCommentForm" (ngSubmit)="submit()">
+            <form [formGroup]="newCommentForm" (ngSubmit)="submitComment()">
                 <div class="form-group-new-post flex-center">
                     <label>Message</label>
                     <input type="text" formControlName="content">

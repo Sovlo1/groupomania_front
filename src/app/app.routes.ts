@@ -9,6 +9,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
+import { EditPostComponent } from './main-container/edit-post/edit-post.component';
+import { DeletePostComponent } from './main-container/delete-post/delete-post.component';
 
 export const ROUTES: Routes = [
   {
@@ -23,7 +25,11 @@ export const ROUTES: Routes = [
     path: 'home',
     component: MainContainerComponent,
     canActivate: [AuthGuard],
-    children: [{ path: 'new', component: NewPostComponent }],
+    children: [
+      { path: 'new', component: NewPostComponent },
+      { path: 'edit/:id', component: EditPostComponent },
+      { path: ':id/delete', component: DeletePostComponent },
+    ],
   },
   {
     path: 'profile/:id',

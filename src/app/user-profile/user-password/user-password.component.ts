@@ -27,12 +27,12 @@ export class UserPasswordComponent implements OnInit {
   ngOnInit() {
     this.users$ = this.users.users$;
     this.id = this.auth.getUserId();
+    this.changePassword = this.formBuilder.group({
+      password: ['', Validators.required],
+      newPassword: ['', Validators.required],
+    });
     this.users.getUserInfos(this.id).subscribe((user) => {
       this.user = user;
-      this.changePassword = this.formBuilder.group({
-        password: ['', Validators.required],
-        newPassword: ['', Validators.required],
-      });
     });
   }
 

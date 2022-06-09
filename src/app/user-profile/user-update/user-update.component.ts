@@ -15,7 +15,6 @@ export class UserUpdateComponent implements OnInit {
   public users$!: Observable<User>;
   public file!: File;
   public id?: string;
-  public user!: User;
   public modifyUserInfos!: FormGroup;
   public firstName?: string;
   public lastName?: string;
@@ -38,19 +37,13 @@ export class UserUpdateComponent implements OnInit {
     this.users$ = this.users.users$;
     this.id = this.auth.getUserId();
     this.users.getUserInfos(this.id).subscribe((user) => {
-      this.user = user;
       this.modifyUserInfos = this.formBuilder.group({
-        firstName: [this.user.firstName, Validators.required],
-        lastName: [this.user.lastName, Validators.required],
-        email: [this.user.email, Validators.required],
+        firstName: [user.firstName, Validators.required],
+        lastName: [user.lastName, Validators.required],
+        email: [user.email, Validators.required],
         file: [null],
       });
     });
-    // this.modifyUserInfos = this.formBuilder.group({
-    //   firstName: [this.user.firstName, Validators.required],
-    //   lastName: [this.user.lastName, Validators.required],
-    //   email: [this.user.email, Validators.required],
-    // });
   }
 
   newFile(event: Event) {
@@ -80,9 +73,7 @@ export class UserUpdateComponent implements OnInit {
       .pipe(
         tap(async () => {
           this.router.navigate(['../profile/' + this.id]);
-          this.users.getUserInfos(this.id!).subscribe((user) => {
-            this.user = user;
-          });
+          this.users.getUserInfos(this.id!).subscribe();
         })
       )
       .subscribe();
