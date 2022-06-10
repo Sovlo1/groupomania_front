@@ -24,14 +24,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PostListComponent implements OnInit {
   public postId?: number | undefined;
   public newCommentForm!: FormGroup;
+  public postIndex?: number;
   public commentIndex?: number;
   public newComment: boolean = false;
   public posts$!: Observable<Post[]>;
   public postList!: Post[];
   public file!: File;
   public maxComments: number = 3;
-  public test!: number;
   public id?: string;
+  public deleteThisPost: boolean = false;
+  public deleteIndex!: number;
+  public deleteThisComment: boolean = false;
 
   constructor(
     private post: PostsService,
@@ -55,11 +58,6 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  updateMaxComments(index: number) {
-    this.commentIndex = index;
-    this.maxComments = this.maxComments + 3;
-  }
-
   postComment(index: number) {
     this.commentIndex = index;
     this.newComment = true;
@@ -81,24 +79,48 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(index: number) {
-    if (confirm('Etes vous certain de vouloir supprimer ce message?')) {
-      const userId = this.postList[index].UserId;
-      const postId = this.postList[index].id;
-      console.log(userId, postId);
-      if (this.id == userId) {
-        this.post
-          .deletePost(userId, postId)
-          .pipe(
-            tap(() => {
-              this.post.getPosts().subscribe((post) => {
-                this.postList = post.reverse();
-                console.log(post);
-              });
-            })
-          )
-          .subscribe();
-      }
+    this.deleteThisPost = true;
+    this.deleteIndex = index;
+  }
+
+  deleteComment(index: number, i: number) {
+    this.deleteThisComment = true;
+    this.deleteIndex = index;
+    this.postIndex = i;
+    this.commentIndex = index;
+    console.log(this.commentIndex, this.postIndex);
+  }
+
+  cancelCommentDelete() {
+    this.deleteThisComment = false;
+  }
+
+  confirmCommentDelete() {
+    console.log('pouet');
+  }
+
+  cancelPostDelete() {
+    this.deleteThisPost = false;
+  }
+
+  confirmPostDelete() {
+    const userId = this.postList[this.deleteIndex].UserId;
+    const postId = this.postList[this.deleteIndex].id;
+    console.log(userId, postId);
+    if (this.id == userId) {
+      this.post
+        .deletePost(userId, postId)
+        .pipe(
+          tap(() => {
+            this.post.getPosts().subscribe((post) => {
+              this.postList = post.reverse();
+              console.log(post);
+            });
+          })
+        )
+        .subscribe();
     }
+    this.deleteThisPost = false;
   }
 
   submitComment() {

@@ -11,7 +11,7 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./edit-post.component.scss'],
 })
 export class EditPostComponent implements OnInit {
-  public posts$!: Observable<Post[]>;
+  public post$!: Observable<Post[]>;
   public editPostForm!: FormGroup;
   public file!: File;
   public id!: string;
@@ -32,7 +32,23 @@ export class EditPostComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
     });
-    this.posts$ = this.post.posts$;
+    this.post$ = this.post.post$;
+    this.post.getSinglePost(this.id).subscribe((post) => {
+      console.log(post);
+      if (post[0].fileUrl) {
+        this.editPostForm = this.formBuilder.group({
+          title: [post[0].title, [Validators.required]],
+          content: [post[0].content, Validators.required],
+          file: [post[0].fileUrl],
+        });
+      } else {
+        this.editPostForm = this.formBuilder.group({
+          title: [post[0].title, [Validators.required]],
+          content: [post[0].content, Validators.required],
+          file: [null],
+        });
+      }
+    });
   }
 
   leaveForm(): void {

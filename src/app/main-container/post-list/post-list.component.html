@@ -1,6 +1,18 @@
 <section *ngIf="posts$ | async as posts">
-    <div *ngFor="let post of posts;let index = index" class="posts-box">
-        <div class="posts">
+    <div *ngFor="let post of posts;let i = index" class="posts">
+        <div class="posts__box">
+            <div class="posts__delete--confirm d-flex justify-center flex-align-center"
+                *ngIf="deleteThisPost && deleteIndex === i">
+                <div class="d-flex flex-column">
+                    <p>Etes vous certain de vouloir supprimer ce message? Cette action est irréversible!</p>
+                    <div class="d-flex">
+                        <button class="btn posts__delete--confirm--btn--left"
+                            (click)="confirmPostDelete()">Confirmer</button>
+                        <button class="btn posts__delete--confirm--btn--right"
+                            (click)="cancelPostDelete()">Annuler</button>
+                    </div>
+                </div>
+            </div>
             <div class="posts__user">
                 <div class="d-flex flex-align-center">
                     <img src="{{post.User.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
@@ -8,51 +20,70 @@
                 </div>
                 <div class="d-flex">
                     <div *ngIf="id==post.UserId" class="delete__post"><i class="fa-solid fa-pen"
-                            (click)="editPost(index)"></i>
+                            (click)="editPost(i)"></i>
                     </div>
-                    <div *ngIf="id==post.UserId" class="delete__post" (click)="deletePost(index)"><i
+                    <div *ngIf="id==post.UserId" class="delete__post" (click)="deletePost(i)"><i
                             class="fa-solid fa-trash"></i>
                     </div>
                 </div>
             </div>
-            <h3>{{ post.title}}</h3>
-            <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
-            <p>{{ post.content}} </p>
-            <p>{{ post.createdAt | date}} </p>
+            <div class="posts__content">
+                <h3>{{ post.title}}</h3>
+                <p>{{ post.content}} </p>
+                <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
+                <div class="d-flex">
+                    <p class="date">Posté le {{ post.createdAt | date}}</p>
+                    <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
+                        post.updatedAt | date }} )</p>
+                </div>
+            </div>
             <div *ngIf="post.Comments!.length>0">
-                <div *ngFor="let comment of post.Comments!;index as index">
-                    <div class="comments" *ngIf="(index+1)<(maxComments)">
+                <div class="posts__comments" *ngFor="let comment of post.Comments!;let index = index">
+                    <div class="posts__comments__delete--confirm d-flex justify-center flex-align-center"
+                        *ngIf="deleteThisComment && commentIndex === index && postIndex === i">
+                        <div class="d-flex flex-column">
+                            <p>Etes vous certain de vouloir supprimer ce commentaire? Cette action est irréversible!</p>
+                            <div class="d-flex">
+                                <button class="btn posts__delete--confirm--btn--left"
+                                    (click)="confirmCommentDelete()">Confirmer</button>
+                                <button class="btn posts__delete--confirm--btn--right"
+                                    (click)="cancelCommentDelete()">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments">
                         <div class="d-flex flex-align-center justify-space-between">
                             <h4>{{ comment.UserId }} </h4>
-                            <div *ngIf="id==post.UserId" class="delete__comment" (click)="deletePost(index)"><i
+                            <div *ngIf="id==post.UserId" class="delete__comment" (click)="deleteComment(index, i)"><i
                                     class="fa-solid fa-trash"></i>
                             </div>
                         </div>
                         <p>{{ comment.content }} </p>
                         <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
-                        <p>{{ comment.createdAt | date}} </p>
+                        <div class="d-flex">
+                            <p class="date">Posté le {{ comment.createdAt | date}}</p>
+                            <p class="date" *ngIf="comment.createdAt !== comment.updatedAt">(dernière édition le {{
+                                comment.updatedAt | date }} )</p>
+                        </div>
                     </div>
                 </div>
-                <button class="btn" (click)="updateMaxComments(index)"
-                    *ngIf="post.Comments!.length>maxComments || post.Comments!.length===maxComments && commentIndex === index">Afficher
-                    plus de commentaires</button>
             </div>
-        </div>
-        <button class="btn" *ngIf="!newComment || commentIndex !== index" (click)="postComment(index)">Ajouter
-            un
-            commentaire</button>
-        <div *ngIf="newComment && commentIndex === index">
-            <form [formGroup]="newCommentForm" (ngSubmit)="submitComment()">
-                <div class="form-group-new-post flex-center">
-                    <label>Message</label>
-                    <input type="text" formControlName="content">
-                </div>
-                <div class="form-group-new-post flex-center">
-                    <label>Image/vidéo</label>
-                    <input type="file" (change)="newFile($event)">
-                </div>
-                <button class="btn">Envoyer!</button>
-            </form>
+            <button class="btn" *ngIf="!newComment || commentIndex !== i" (click)="postComment(i)">Ajouter
+                un
+                commentaire</button>
+            <div *ngIf="newComment && commentIndex === i">
+                <form [formGroup]="newCommentForm" (ngSubmit)="submitComment()">
+                    <div class="form-group-new-post flex-center">
+                        <label>Message</label>
+                        <input type="text" formControlName="content">
+                    </div>
+                    <div class="form-group-new-post flex-center">
+                        <label>Image/vidéo</label>
+                        <input type="file" (change)="newFile($event)">
+                    </div>
+                    <button class="btn">Envoyer!</button>
+                </form>
+            </div>
         </div>
     </div>
 </section>

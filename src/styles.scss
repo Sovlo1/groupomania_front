@@ -6,9 +6,11 @@
 // html,
 body {
     font-family: "Lato", sans-serif;
+    color: #f6f6f6;
     height: 100%;
     width: 100%;
     margin: 0;
+    background-color: var(--secondary);
 }
 
 :root {
@@ -86,6 +88,14 @@ label {
     align-items: center;
 }
 
+.justify-center {
+    justify-content: center;
+}
+
 .justify-space-between {
     justify-content: space-between;
+}
+
+.flex-column {
+    flex-direction: column;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { first, Subject, tap } from 'rxjs';
 import { Post } from '../models/post.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Post } from '../models/post.model';
 })
 export class PostsService {
   posts$ = new Subject<Post[]>();
+  post$ = new Subject<Post[]>();
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class PostsService {
   getSinglePost(id: string) {
     return this.http.get<Post[]>('http://localhost:3000/api/post/' + id).pipe(
       tap((post: Post[]) => {
-        this.posts$.next(post);
+        this.post$.next(post);
       })
     );
   }
