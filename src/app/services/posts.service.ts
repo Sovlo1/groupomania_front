@@ -44,4 +44,11 @@ export class PostsService {
     };
     return this.http.delete('http://localhost:3000/api/post/delete', options);
   }
+
+  updatePost(post: Post, file: File, id: string) {
+    const formData = new FormData();
+    formData.append('post', JSON.stringify(post));
+    formData.append('file', file);
+    return this.http.put('http://localhost:3000/api/post/edit/' + id, formData);
+  }
 }

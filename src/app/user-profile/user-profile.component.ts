@@ -23,7 +23,9 @@ export class UserProfileComponent implements OnInit {
     this.users$ = this.users.users$;
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
-      this.users.getUserInfos(this.id).subscribe();
+      this.users.getUserInfos(this.id).subscribe((user) => {
+        console.log(user);
+      });
     });
   }
 }

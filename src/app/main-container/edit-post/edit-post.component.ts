@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -15,6 +15,8 @@ export class EditPostComponent implements OnInit {
   public editPostForm!: FormGroup;
   public file!: File;
   public id!: string;
+  public postList!: Post[];
+  public test: number = 1;
 
   constructor(
     private router: Router,
@@ -39,7 +41,7 @@ export class EditPostComponent implements OnInit {
         this.editPostForm = this.formBuilder.group({
           title: [post[0].title, [Validators.required]],
           content: [post[0].content, Validators.required],
-          file: [post[0].fileUrl],
+          file: [null],
         });
       } else {
         this.editPostForm = this.formBuilder.group({
@@ -65,6 +67,20 @@ export class EditPostComponent implements OnInit {
   }
 
   submit() {
-    console.log('pouet');
+    const updatedPost = new Post();
+    updatedPost.title = this.editPostForm.get('title')!.value;
+    updatedPost.content = this.editPostForm.get('content')!.value;
+    this.post
+      .updatePost(updatedPost, this.editPostForm.get('file')!.value, this.id!)
+      .pipe(
+        tap(() => {
+          this.post.posts$;
+          this.post.getPosts().subscribe((post) => {
+            this.postList = post.reverse();
+            this.router.navigate(['../home']);
+          });
+        })
+      )
+      .subscribe();
   }
 }

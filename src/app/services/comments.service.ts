@@ -17,4 +17,17 @@ export class CommentsService {
     formData.append('postId', JSON.stringify(postId));
     return this.http.post('http://localhost:3000/api/comment/new', formData);
   }
+
+  deleteComment(userId: number | undefined, commentId: number | undefined) {
+    const options = {
+      body: {
+        userId: userId,
+        commentId: commentId,
+      },
+    };
+    return this.http.delete(
+      'http://localhost:3000/api/comment/delete',
+      options
+    );
+  }
 }

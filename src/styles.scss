@@ -10,7 +10,9 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
-    background-color: var(--secondary);
+    // background-color: var(--secondary);
+    background: linear-gradient(318deg, rgba(253, 45, 1, 1) 0%, rgba(255, 215, 215, 1) 30%);
+    background-attachment: fixed; /*edit*/
 }
 
 :root {

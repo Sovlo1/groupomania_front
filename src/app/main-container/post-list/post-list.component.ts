@@ -24,7 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PostListComponent implements OnInit {
   public postId?: number | undefined;
   public newCommentForm!: FormGroup;
-  public postIndex?: number;
+  public postIndex!: number;
   public commentIndex?: number;
   public newComment: boolean = false;
   public posts$!: Observable<Post[]>;
@@ -96,7 +96,25 @@ export class PostListComponent implements OnInit {
   }
 
   confirmCommentDelete() {
-    console.log('pouet');
+    const userId =
+      this.postList[this.postIndex].Comments![this.deleteIndex].userId;
+    const commentId =
+      this.postList[this.postIndex].Comments![this.deleteIndex].id;
+    console.log(userId, commentId);
+    if (this.id == userId) {
+      this.comment
+        .deleteComment(userId, commentId)
+        .pipe(
+          tap(() => {
+            this.post.getPosts().subscribe((post) => {
+              this.postList = post.reverse();
+              console.log(post);
+            });
+          })
+        )
+        .subscribe();
+    }
+    this.deleteThisComment = false;
   }
 
   cancelPostDelete() {
@@ -121,6 +139,10 @@ export class PostListComponent implements OnInit {
         .subscribe();
     }
     this.deleteThisPost = false;
+  }
+
+  goToThatProfile(id: number) {
+    this.router.navigate(['./profile/' + id]);
   }
 
   submitComment() {

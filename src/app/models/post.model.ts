@@ -10,4 +10,5 @@ export class Post {
   UserId?: number;
   User?: any;
   Comments?: any[];
+  likes?: number;
 }

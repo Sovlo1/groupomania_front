@@ -37,6 +37,9 @@ section {
             object-fit: cover;
             margin-right: 10px;
         }
+        &--click {
+            cursor: pointer;
+        }
     }
     &__content {
         margin: 0 10px 0 10px;
@@ -82,6 +85,13 @@ section {
             height: 100%;
             border-radius: 15px;
             text-align: center;
+        }
+        img {
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
+            object-fit: cover;
+            margin-right: 5px;
         }
     }
     &__delete--confirm {
