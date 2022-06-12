@@ -35,6 +35,8 @@ export class PostListComponent implements OnInit {
   public deleteThisPost: boolean = false;
   public deleteIndex!: number;
   public deleteThisComment: boolean = false;
+  public isAdmin?: boolean;
+  public isMod?: boolean;
 
   constructor(
     private post: PostsService,
@@ -46,6 +48,8 @@ export class PostListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.auth.getAdminStatus();
+    this.isMod = this.auth.getModStatus();
     this.id = this.auth.getUserId();
     this.newCommentForm = this.formBuilder.group({
       content: [null, Validators.required],
@@ -101,7 +105,7 @@ export class PostListComponent implements OnInit {
     const commentId =
       this.postList[this.postIndex].Comments![this.deleteIndex].id;
     console.log(userId, commentId);
-    if (this.id == userId) {
+    if (this.id == userId || this.isAdmin || this.isMod) {
       this.comment
         .deleteComment(userId, commentId)
         .pipe(
@@ -124,8 +128,8 @@ export class PostListComponent implements OnInit {
   confirmPostDelete() {
     const userId = this.postList[this.deleteIndex].UserId;
     const postId = this.postList[this.deleteIndex].id;
-    console.log(userId, postId);
-    if (this.id == userId) {
+    console.log('allo ', userId, postId);
+    if (this.id == userId || this.isAdmin || this.isMod) {
       this.post
         .deletePost(userId, postId)
         .pipe(

@@ -19,10 +19,10 @@
                     <h2>{{ post.User.firstName}} {{ post.User.lastName}} </h2>
                 </div>
                 <div class="d-flex">
-                    <div *ngIf="id==post.UserId" class="delete__post"><i class="fa-solid fa-pen"
+                    <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__post"><i class="fa-solid fa-pen"
                             (click)="editPost(i)"></i>
                     </div>
-                    <div *ngIf="id==post.UserId" class="delete__post" (click)="deletePost(i)"><i
+                    <div *ngIf="id==post.UserId  || isAdmin || isMod" class="delete__post" (click)="deletePost(i)"><i
                             class="fa-solid fa-trash"></i>
                     </div>
                 </div>
@@ -31,10 +31,15 @@
                 <h3>{{ post.title}}</h3>
                 <p>{{ post.content}} </p>
                 <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
-                <div class="d-flex">
-                    <p class="date">Posté le {{ post.createdAt | date}}</p>
-                    <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
-                        post.updatedAt | date }} )</p>
+                <div class="d-flex justify-space-between flex-align-center posts__content__bottom">
+                    <div>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <div class="d-flex">
+                        <p class="date">Posté le {{ post.createdAt | date}}</p>
+                        <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
+                            post.updatedAt | date }} )</p>
+                    </div>
                 </div>
             </div>
             <div *ngIf="post.Comments!.length>0">
@@ -59,9 +64,8 @@
                                     onerror="this.src='../assets/images/defaultuser.png'">
                                 <h4>{{ comment.User.firstName }} {{ comment.User.lastName}} </h4>
                             </div>
-
-                            <div *ngIf="id==post.UserId" class="delete__comment" (click)="deleteComment(index, i)"><i
-                                    class="fa-solid fa-trash"></i>
+                            <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__comment"
+                                (click)="deleteComment(index, i)"><i class="fa-solid fa-trash"></i>
                             </div>
                         </div>
                         <p>{{ comment.content }} </p>

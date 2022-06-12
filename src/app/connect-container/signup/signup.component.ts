@@ -43,6 +43,8 @@ export class SignupComponent implements OnInit {
           return error;
         })
       )
-      .subscribe();
+      .subscribe((error) => {
+        console.log('hein' + error);
+      });
   }
 }

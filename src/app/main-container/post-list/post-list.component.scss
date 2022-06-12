@@ -48,13 +48,17 @@ section {
             font-size: 24px;
         }
         p {
-            margin-top: 5px;
             font-size: 20px;
         }
         .date {
-            margin-top: 20px;
             font-size: 14px;
             font-style: italic;
+        }
+        &__bottom {
+            margin: 5px 0 5px 0;
+            i {
+                font-size: 20px;
+            }
         }
     }
     &__comments {

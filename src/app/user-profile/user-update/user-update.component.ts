@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,7 +19,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class UserUpdateComponent implements OnInit {
   public users$!: Observable<User>;
   public file!: File;
-  public id?: string;
+  public id!: string;
   public modifyUserInfos!: FormGroup;
   public firstName?: string;
   public lastName?: string;
@@ -24,7 +29,8 @@ export class UserUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private users: UsersService,
-    private auth: AuthService
+    private auth: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -34,14 +40,18 @@ export class UserUpdateComponent implements OnInit {
       email: ['', Validators.required],
       file: [null],
     });
-    this.users$ = this.users.users$;
-    this.id = this.auth.getUserId();
-    this.users.getUserInfos(this.id).subscribe((user) => {
-      this.modifyUserInfos = this.formBuilder.group({
-        firstName: [user.firstName, Validators.required],
-        lastName: [user.lastName, Validators.required],
-        email: [user.email, Validators.required],
-        file: [null],
+    this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
+      this.id = paramMap.get('id')!;
+      console.log(this.id);
+      this.users$ = this.users.users$;
+      this.users.getUserInfos(this.id).subscribe((user) => {
+        console.log(user);
+        this.modifyUserInfos = this.formBuilder.group({
+          firstName: [user.firstName, Validators.required],
+          lastName: [user.lastName, Validators.required],
+          email: [user.email, Validators.required],
+          file: [null],
+        });
       });
     });
   }
