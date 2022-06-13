@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { catchError, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,22 +21,24 @@ export class UserRemoveComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private users: UsersService,
-    private auth: AuthService
+    private auth: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.users$ = this.users.users$;
-    this.id = this.auth.getUserId();
-    this.users.getUserInfos(this.id).subscribe((user) => {
-      this.user = user;
-    });
-    this.deleteUser = this.formBuilder.group({
-      password: ['', Validators.required],
+    this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
+      this.id = paramMap.get('id')!;
+      this.users.getUserInfos(this.id).subscribe((user) => {
+        this.user = user;
+      });
+      this.deleteUser = this.formBuilder.group({
+        password: ['', Validators.required],
+      });
     });
   }
 
   leaveForm(): void {
-    this.id = this.auth.getUserId();
     this.router.navigate(['../profile/' + this.id]);
   }
 
@@ -45,11 +47,8 @@ export class UserRemoveComponent implements OnInit {
   }
 
   submit(): void {
-    this.users$ = this.users.users$;
-    this.id = this.auth.getUserId();
-    console.log(this.deleteUser.get('password')!.value);
     this.users
-      .removeUser(this.id, this.deleteUser.get('password')!.value)
+      .removeUser(this.id!, this.deleteUser.get('password')!.value)
       .pipe(
         tap(() => {
           this.auth.logout();

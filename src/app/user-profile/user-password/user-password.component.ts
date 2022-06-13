@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,23 +21,25 @@ export class UserPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private users: UsersService,
-    private auth: AuthService
+    private auth: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.users$ = this.users.users$;
-    this.id = this.auth.getUserId();
-    this.changePassword = this.formBuilder.group({
-      password: ['', Validators.required],
-      newPassword: ['', Validators.required],
-    });
-    this.users.getUserInfos(this.id).subscribe((user) => {
-      this.user = user;
+    this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
+      this.id = paramMap.get('id')!;
+      this.changePassword = this.formBuilder.group({
+        password: ['', Validators.required],
+        newPassword: ['', Validators.required],
+      });
+      this.users.getUserInfos(this.id).subscribe((user) => {
+        this.user = user;
+      });
     });
   }
 
   leaveForm(): void {
-    this.id = this.auth.getUserId();
     this.router.navigate(['../profile/' + this.id]);
   }
 
