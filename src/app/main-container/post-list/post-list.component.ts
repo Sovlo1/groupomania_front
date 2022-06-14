@@ -31,7 +31,7 @@ export class PostListComponent implements OnInit {
   public postList!: Post[];
   public file!: File;
   public maxComments: number = 3;
-  public id?: string;
+  public id?: string | null;
   public deleteThisPost: boolean = false;
   public deleteIndex!: number;
   public deleteThisComment: boolean = false;

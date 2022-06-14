@@ -13,8 +13,8 @@ import { UsersService } from '../services/users.service';
 export class UserProfileComponent implements OnInit {
   public users$!: Observable<User>;
   public id?: string;
-  public authId?: string;
-  public isAdmin?: boolean;
+  public authId?: string | null;
+  public isAdmin!: boolean;
   public isMod?: boolean;
 
   constructor(
@@ -31,9 +31,7 @@ export class UserProfileComponent implements OnInit {
     this.users$ = this.users.users$;
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
-      this.users.getUserInfos(this.id).subscribe((user) => {
-        console.log(user);
-      });
+      this.users.getUserInfos(this.id).subscribe();
     });
   }
 }

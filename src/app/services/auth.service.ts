@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, tap } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class AuthService {
   public user$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     null
   );
-  public auth$ = new BehaviorSubject<boolean>(false);
+  public auth$: ReplaySubject<boolean> = new ReplaySubject(1);
   private token!: string | null;
   private userId!: string;
   private isMod!: boolean;
@@ -19,11 +19,19 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   getToken() {
-    return this.token;
+    if (window.localStorage.getItem('userToken')) {
+      return window.localStorage.getItem('userToken');
+    } else {
+      return this.token;
+    }
   }
 
   getUserId() {
-    return this.userId;
+    if (window.localStorage.getItem('userId')) {
+      return window.localStorage.getItem('userId');
+    } else {
+      return this.userId;
+    }
   }
 
   getAdminStatus() {
@@ -54,6 +62,7 @@ export class AuthService {
   logUser(email: string, password: string) {
     return this.http
       .post<{
+        foundUser: User;
         userId: string;
         token: string;
         isAdmin: boolean;
@@ -63,12 +72,15 @@ export class AuthService {
         password: password,
       })
       .pipe(
-        tap(({ userId, token, isAdmin, isMod }) => {
+        tap(({ foundUser, userId, token, isAdmin, isMod }) => {
+          console.log(foundUser);
           this.userId = userId;
           this.token = token;
           this.isAdmin = isAdmin;
           this.isMod = isMod;
           window.localStorage.setItem('userToken', this.token);
+          window.localStorage.setItem('userId', this.userId);
+          this.user$.next(foundUser);
           this.auth$.next(true);
         })
       );
@@ -79,8 +91,12 @@ export class AuthService {
       .post<User>(`http://localhost:3000/api/auth/loggeduser`, { token: token })
       .pipe(
         tap((user: User) => {
+          console.log(user);
+          this.user$.next(user);
           if (user) {
             this.auth$.next(true);
+          } else {
+            this.auth$.next(false);
           }
         })
       );

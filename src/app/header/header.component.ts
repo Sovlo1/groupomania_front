@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   public auth$!: Observable<boolean>;
-  public id?: string;
+  public id?: string | null;
 
   constructor(private auth: AuthService, public router: Router) {}
 

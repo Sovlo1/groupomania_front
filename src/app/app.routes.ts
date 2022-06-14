@@ -10,11 +10,13 @@ import { UserUpdateComponent } from './user-profile/user-update/user-update.comp
 import { UserRemoveComponent } from './user-profile/user-remove/user-remove.component';
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
+import { DataGuardGuard } from './services/data-guard.guard';
 
 export const ROUTES: Routes = [
   {
     path: '',
     component: ConnectContainerComponent,
+
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
@@ -23,7 +25,7 @@ export const ROUTES: Routes = [
   {
     path: 'home',
     component: MainContainerComponent,
-    canActivate: [AuthGuard],
+    canActivate: [DataGuardGuard, AuthGuard],
     children: [
       { path: 'new', component: NewPostComponent },
       { path: 'edit/:id', component: EditPostComponent },
@@ -32,7 +34,7 @@ export const ROUTES: Routes = [
   {
     path: 'profile/:id',
     component: UserProfileComponent,
-    canActivate: [AuthGuard],
+    canActivate: [DataGuardGuard, AuthGuard],
     children: [
       { path: 'updateinfos', component: UserUpdateComponent },
       { path: 'delete', component: UserRemoveComponent },
