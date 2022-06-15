@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, tap } from 'rxjs';
 import { User } from '../models/user.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,8 @@ export class AuthService {
   );
   public auth$: ReplaySubject<boolean> = new ReplaySubject(1);
   private token!: string | null;
-  private userId!: string;
-  private isMod!: boolean;
-  private isAdmin!: boolean;
+  public helper = new JwtHelperService();
+  public decodedToken: any;
 
   constructor(private http: HttpClient) {}
 
@@ -27,19 +27,45 @@ export class AuthService {
   }
 
   getUserId() {
-    if (window.localStorage.getItem('userId')) {
-      return window.localStorage.getItem('userId');
-    } else {
-      return this.userId;
+    if (window.localStorage.getItem('userToken')) {
+      const isTokenExpired = this.helper.isTokenExpired(
+        window.localStorage.getItem('userToken')!
+      );
+      if (!isTokenExpired) {
+        this.decodedToken = this.helper.decodeToken(
+          window.localStorage.getItem('userToken')!
+        );
+        return this.decodedToken.userId;
+      }
     }
   }
 
   getAdminStatus() {
-    return this.isAdmin;
+    if (window.localStorage.getItem('userToken')) {
+      const isTokenExpired = this.helper.isTokenExpired(
+        window.localStorage.getItem('userToken')!
+      );
+      if (!isTokenExpired) {
+        this.decodedToken = this.helper.decodeToken(
+          window.localStorage.getItem('userToken')!
+        );
+        return this.decodedToken.isAdmin;
+      }
+    }
   }
 
   getModStatus() {
-    return this.isMod;
+    if (window.localStorage.getItem('userToken')) {
+      const isTokenExpired = this.helper.isTokenExpired(
+        window.localStorage.getItem('userToken')!
+      );
+      if (!isTokenExpired) {
+        this.decodedToken = this.helper.decodeToken(
+          window.localStorage.getItem('userToken')!
+        );
+        return this.decodedToken.isMod;
+      }
+    }
   }
 
   addUser(
@@ -63,23 +89,15 @@ export class AuthService {
     return this.http
       .post<{
         foundUser: User;
-        userId: string;
         token: string;
-        isAdmin: boolean;
-        isMod: boolean;
       }>('http://localhost:3000/api/auth/login', {
         email: email,
         password: password,
       })
       .pipe(
-        tap(({ foundUser, userId, token, isAdmin, isMod }) => {
-          console.log(foundUser);
-          this.userId = userId;
+        tap(({ foundUser, token }) => {
           this.token = token;
-          this.isAdmin = isAdmin;
-          this.isMod = isMod;
           window.localStorage.setItem('userToken', this.token);
-          window.localStorage.setItem('userId', this.userId);
           this.user$.next(foundUser);
           this.auth$.next(true);
         })
@@ -103,10 +121,7 @@ export class AuthService {
   }
 
   logout() {
-    this.userId = '';
     this.token = '';
-    this.isAdmin = false;
-    this.isMod = false;
     window.localStorage.clear();
     this.auth$.next(false);
   }

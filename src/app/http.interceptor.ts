@@ -17,8 +17,6 @@ export class Interceptor implements HttpInterceptor {
     handler: HttpHandler
   ): Observable<HttpEvent<any>> {
     const authToken = this.auth.getToken();
-    const isAdmin = this.auth.getAdminStatus();
-    const isMod = this.auth.getModStatus();
     if (authToken) {
       req = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + authToken),
