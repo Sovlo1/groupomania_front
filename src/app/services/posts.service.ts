@@ -51,4 +51,11 @@ export class PostsService {
     formData.append('file', file);
     return this.http.put('http://localhost:3000/api/post/edit/' + id, formData);
   }
+
+  likePost(postId: number, userId: string) {
+    return this.http.put('http://localhost:3000/api/post/like/' + postId, {
+      postId,
+      userId,
+    });
+  }
 }

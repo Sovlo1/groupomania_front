@@ -82,6 +82,22 @@ export class PostListComponent implements OnInit {
     this.router.navigate(['edit/' + this.postId], { relativeTo: this.route });
   }
 
+  likePost(i: number) {
+    this.postId = this.postList[i].id;
+    this.post
+      .likePost(this.postId!, this.id!)
+      .pipe(
+        tap(async () => {
+          this.post.getPosts().subscribe((post) => {
+            this.postList = post.reverse();
+            
+            console.log(post);
+          });
+        })
+      )
+      .subscribe();
+  }
+
   deletePost(index: number) {
     this.deleteThisPost = true;
     this.deleteIndex = index;
