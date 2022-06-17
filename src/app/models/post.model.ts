@@ -11,4 +11,5 @@ export class Post {
   User?: any;
   Comments?: any[];
   likes?: number;
+  Likes: any;
 }

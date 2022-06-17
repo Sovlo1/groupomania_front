@@ -3,12 +3,13 @@ import {
   Component,
   DoCheck,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { Comment } from 'src/app/models/comment.model';
@@ -21,22 +22,21 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
 })
-export class PostListComponent implements OnInit {
-  public postId?: number | undefined;
+export class PostListComponent implements OnInit, OnDestroy {
+  public postId?: number;
   public newCommentForm!: FormGroup;
   public postIndex!: number;
   public commentIndex?: number;
   public newComment: boolean = false;
-  public posts$!: Observable<Post[]>;
   public postList!: Post[];
   public file!: File;
-  public maxComments: number = 3;
   public id?: string | null;
   public deleteThisPost: boolean = false;
   public deleteIndex!: number;
   public deleteThisComment: boolean = false;
   public isAdmin?: boolean;
   public isMod?: boolean;
+  public posts$!: Observable<Post[]>;
 
   constructor(
     private post: PostsService,
@@ -62,6 +62,18 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  likeStatus(i: number) {
+    if (
+      this.postList[i].Likes.find(
+        (like: { UserId: string }) => like.UserId == this.id
+      )
+    ) {
+      return 'fa-solid';
+    } else {
+      return 'fa-regular';
+    }
+  }
+
   postComment(index: number) {
     this.commentIndex = index;
     this.newComment = true;
@@ -84,18 +96,16 @@ export class PostListComponent implements OnInit {
 
   likePost(i: number) {
     this.postId = this.postList[i].id;
-    this.post
-      .likePost(this.postId!, this.id!)
-      .pipe(
-        tap(async () => {
-          this.post.getPosts().subscribe((post) => {
-            this.postList = post.reverse();
-            
-            console.log(post);
-          });
-        })
-      )
-      .subscribe();
+    this.post.likePost(this.postId!, this.id!).subscribe();
+    this.updatePostList();
+  }
+
+  updatePostList() {
+    return this.post.getPosts().subscribe((post) => {
+      this.post.posts$;
+      this.postList = post.reverse();
+      console.log(this.postList);
+    });
   }
 
   deletePost(index: number) {
@@ -186,4 +196,6 @@ export class PostListComponent implements OnInit {
       )
       .subscribe();
   }
+
+  ngOnDestroy(): void {}
 }

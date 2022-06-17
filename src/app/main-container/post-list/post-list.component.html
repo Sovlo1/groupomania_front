@@ -33,9 +33,9 @@
                 <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
                 <div class="d-flex justify-space-between flex-align-center posts__content__bottom">
                     <div class="d-flex" (click)="likePost(i)">
-                        <i class="fa-regular fa-star"></i>
-                        <p *ngIf="post.likes! <= 1">{{ post.likes }} like</p>
-                        <p *ngIf="post.likes! > 1">{{ post.likes }} likes</p>
+                        <i [ngClass]="likeStatus(i)" class="fa-star"></i>
+                        <p *ngIf="post.likes! <= 1">{{ post.Likes.length }} like</p>
+                        <p *ngIf="post.likes! > 1">{{ post.Likes.length }} likes</p>
                     </div>
                     <div class="d-flex">
                         <p class="date">Posté le {{ post.createdAt | date}}</p>
