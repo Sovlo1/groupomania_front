@@ -6,9 +6,9 @@
                 <div class="d-flex flex-column">
                     <p>Etes vous certain de vouloir supprimer ce message? Cette action est irréversible!</p>
                     <div class="d-flex">
-                        <button class="btn posts__delete--confirm--btn--left"
+                        <button class="btn btn-ternary posts__delete--confirm--btn--left"
                             (click)="confirmPostDelete()">Confirmer</button>
-                        <button class="btn posts__delete--confirm--btn--right"
+                        <button class="btn btn-ternary posts__delete--confirm--btn--right"
                             (click)="cancelPostDelete()">Annuler</button>
                     </div>
                 </div>
@@ -19,11 +19,11 @@
                     <h2>{{ post.User.firstName}} {{ post.User.lastName}} </h2>
                 </div>
                 <div class="d-flex">
-                    <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__post"><i class="fa-solid fa-pen"
-                            (click)="editPost(i)"></i>
+                    <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__post"><i
+                            class="fa-solid fa-pen icon-edit" (click)="editPost(i)"></i>
                     </div>
                     <div *ngIf="id==post.UserId  || isAdmin || isMod" class="delete__post" (click)="deletePost(i)"><i
-                            class="fa-solid fa-trash"></i>
+                            class="fa-solid fa-trash  icon-edit"></i>
                     </div>
                 </div>
             </div>
@@ -32,14 +32,14 @@
                 <p>{{ post.content}} </p>
                 <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
                 <div class="d-flex justify-space-between flex-align-center posts__content__bottom">
-                    <div class="d-flex" (click)="likePost(i)">
-                        <i [ngClass]="likeStatus(i)" class="fa-star"></i>
+                    <div class="d-flex flex-align-center" (click)="likePost(i)">
+                        <i [ngClass]="likeStatus(i)" class="fa-star icon-regular cursor-pointer"></i>
                         <p *ngIf="post.likes! <= 1">{{ post.Likes.length }} like</p>
                         <p *ngIf="post.likes! > 1">{{ post.Likes.length }} likes</p>
                     </div>
                     <div class="d-flex">
                         <p class="date">Posté le {{ post.createdAt | date}}</p>
-                        <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
+                        <p class="date" *ngIf="post.createdAt !== post.updatedAt"> (dernière édition le {{
                             post.updatedAt | date }} )</p>
                     </div>
                 </div>
@@ -51,9 +51,9 @@
                         <div class="d-flex flex-column">
                             <p>Etes vous certain de vouloir supprimer ce commentaire? Cette action est irréversible!</p>
                             <div class="d-flex">
-                                <button class="btn posts__delete--confirm--btn--left"
+                                <button class="btn btn-ternary posts__delete--confirm--btn--left"
                                     (click)="confirmCommentDelete()">Confirmer</button>
-                                <button class="btn posts__delete--confirm--btn--right"
+                                <button class="btn btn-ternary posts__delete--confirm--btn--right"
                                     (click)="cancelCommentDelete()">Annuler</button>
                             </div>
                         </div>
@@ -61,13 +61,13 @@
                     <div class="comments">
                         <div class="d-flex flex-align-center justify-space-between">
                             <div class="d-flex flex-align-center comments__user--click"
-                                (click)="goToThatProfile(post.User.id)">
+                                (click)="goToThatProfile(comment.User.id)">
                                 <img src="{{comment.User.profilePicUrl}}"
                                     onerror="this.src='../assets/images/defaultuser.png'">
                                 <h4>{{ comment.User.firstName }} {{ comment.User.lastName}} </h4>
                             </div>
                             <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__comment"
-                                (click)="deleteComment(index, i)"><i class="fa-solid fa-trash"></i>
+                                (click)="deleteComment(index, i)"><i class="fa-solid fa-trash icon-edit"></i>
                             </div>
                         </div>
                         <p>{{ comment.content }} </p>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn" *ngIf="!newComment || commentIndex !== i" (click)="postComment(i)">Ajouter
+            <button class="btn btn-white" *ngIf="!newComment || commentIndex !== i" (click)="postComment(i)">Ajouter
                 un
                 commentaire</button>
             <div *ngIf="newComment && commentIndex === i">

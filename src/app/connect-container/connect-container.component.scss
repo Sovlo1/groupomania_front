@@ -10,14 +10,10 @@ ul {
     justify-content: center;
     padding: 0;
     li {
-        border-radius: 3px;
         padding: 10px;
         list-style-type: none;
-        background-color: var(--light-accent);
         &:hover {
             cursor: pointer;
-            transition: 1s;
-            background-color: var(--primary);
         }
         &:first-child {
             margin-right: 10px;

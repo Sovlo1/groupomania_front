@@ -6,9 +6,10 @@
         <img src="../../assets/images/icon-left-font-monochrome-white.svg" alt="logo de groupomania">
     </span>
     <ul>
-        <li *ngIf="!(auth$ | async) && !(router.url === '/')" routerLink="signup">Inscription</li>
-        <li *ngIf="!(auth$  | async) && !(router.url === '/')" routerLink="login">Connexion</li>
-        <li (click)="logout()" *ngIf="auth$ | async">Se déconnecter</li>
-        <li *ngIf="auth$ | async" (click)="checkProfile()">Voir le profil</li>
+        <li class="btn btn-ternary" *ngIf="!(auth$ | async) && !(router.url === '/')" routerLink="signup">Inscription
+        </li>
+        <li class="btn btn-ternary" *ngIf=" !(auth$ | async) && !(router.url==='/' )" routerLink="login">Connexion</li>
+        <li class="btn btn-ternary" (click)=" logout()" *ngIf="auth$ | async">Se déconnecter</li>
+        <li class="btn btn-ternary" *ngIf=" auth$ | async" (click)="checkProfile()">Voir le profil</li>
     </ul>
 </nav>

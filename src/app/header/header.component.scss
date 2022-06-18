@@ -17,15 +17,12 @@ ul {
     display: flex;
     align-items: center;
     li {
-        border-radius: 3px;
+        border-radius: 20px;
         padding: 10px;
         margin: 10px;
         list-style-type: none;
-        background-color: var(--light-accent);
         &:hover {
             cursor: pointer;
-            transition: 1s;
-            background-color: var(--primary);
         }
     }
 }

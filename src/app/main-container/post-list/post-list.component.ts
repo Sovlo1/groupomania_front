@@ -96,8 +96,9 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   likePost(i: number) {
     this.postId = this.postList[i].id;
-    this.post.likePost(this.postId!, this.id!).subscribe();
-    this.updatePostList();
+    this.post.likePost(this.postId!, this.id!).subscribe(() => {
+      this.updatePostList();
+    });
   }
 
   updatePostList() {

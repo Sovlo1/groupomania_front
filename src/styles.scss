@@ -35,11 +35,18 @@ body {
 
 .btn {
     display: block;
-    border-radius: 3px;
+    border-radius: 20px;
     padding: 10px 15px;
     margin: auto;
     border: none;
-    background-color: var(--light-accent);
+    &-ternary {
+        color: #f6f6f6;
+        background-color: var(--ternary);
+    }
+    &-white {
+        color: var(--ternary);
+        background-color: #f6f6f6;
+    }
     &:hover {
         cursor: pointer;
         transition: 1s;
@@ -100,4 +107,20 @@ label {
 
 .flex-column {
     flex-direction: column;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.icon-regular {
+    margin: 2px;
+}
+
+.icon-edit {
+    padding: 4px;
+    border-radius: 3px;
+    &:hover {
+        background-color: darken(#4e5166, $amount: 15);
+    }
 }
