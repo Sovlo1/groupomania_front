@@ -37,6 +37,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   public isAdmin?: boolean;
   public isMod?: boolean;
   public posts$!: Observable<Post[]>;
+  public defaultProfilePicture: any = '../assets/images/defaultuser.png';
 
   constructor(
     private post: PostsService,

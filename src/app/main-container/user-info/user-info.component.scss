@@ -1,4 +1,12 @@
 .user-info-box {
+    @media screen and (max-width: 800px) {
+        flex-direction: row;
+        position: fixed;
+        bottom: -0.5px;
+        background-color: green;
+        max-width: 100%;
+        min-width: 100%;
+    }
     display: flex;
     flex-direction: column;
     max-width: 300px;
@@ -12,6 +20,7 @@
 button {
     display: block;
     margin: 20px auto;
+    z-index: 501;
 }
 
 img {

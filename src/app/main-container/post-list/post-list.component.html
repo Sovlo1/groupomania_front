@@ -15,7 +15,8 @@
             </div>
             <div class="posts__user">
                 <div class="d-flex flex-align-center posts__user--click" (click)="goToThatProfile(post.User.id)">
-                    <img src="{{post.User.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
+                    <img src="{{post.User.profilePicUrl || this.defaultProfilePicture}}"
+                        onerror="this.src='../assets/images/defaultuser.png'">
                     <h2>{{ post.User.firstName}} {{ post.User.lastName}} </h2>
                 </div>
                 <div class="d-flex">
@@ -32,14 +33,15 @@
                 <p>{{ post.content}} </p>
                 <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
                 <div class="d-flex justify-space-between flex-align-center posts__content__bottom">
-                    <div class="d-flex flex-align-center" (click)="likePost(i)">
-                        <i [ngClass]="likeStatus(i)" class="fa-star icon-regular cursor-pointer"></i>
+                    <div class="d-flex flex-align-center">
+                        <i [ngClass]="likeStatus(i)" class="fa-star icon-regular cursor-pointer"
+                            (click)="likePost(i)"></i>
                         <p *ngIf="post.likes! <= 1">{{ post.Likes.length }} like</p>
                         <p *ngIf="post.likes! > 1">{{ post.Likes.length }} likes</p>
                     </div>
                     <div class="d-flex">
                         <p class="date">Posté le {{ post.createdAt | date}}</p>
-                        <p class="date" *ngIf="post.createdAt !== post.updatedAt"> (dernière édition le {{
+                        <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
                             post.updatedAt | date }} )</p>
                     </div>
                 </div>
