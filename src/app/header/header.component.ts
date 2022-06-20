@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
@@ -13,6 +13,12 @@ import { UsersService } from '../services/users.service';
 export class HeaderComponent implements OnInit {
   public auth$!: Observable<boolean>;
   public id?: string | null;
+  public currentWindowWidth!: number;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.currentWindowWidth = window.innerWidth;
+  }
 
   constructor(private auth: AuthService, public router: Router) {}
 

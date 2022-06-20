@@ -2,8 +2,9 @@
     @media screen and (max-width: 800px) {
         flex-direction: row;
         position: fixed;
+        z-index: 20;
         bottom: -0.5px;
-        background-color: green;
+        background-color: white;
         max-width: 100%;
         min-width: 100%;
     }
@@ -18,12 +19,18 @@
 }
 
 button {
+    position: relative;
     display: block;
     margin: 20px auto;
     z-index: 501;
 }
 
 img {
+    @media screen and (max-width: 800px) {
+        width: 64px;
+        height: 64px;
+        border-radius: 32px;
+    }
     object-fit: cover;
     border-radius: 15px;
     height: 192px;

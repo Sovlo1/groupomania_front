@@ -68,7 +68,7 @@
                                     onerror="this.src='../assets/images/defaultuser.png'">
                                 <h4>{{ comment.User.firstName }} {{ comment.User.lastName}} </h4>
                             </div>
-                            <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__comment"
+                            <div *ngIf="id==comment.UserId || isAdmin || isMod" class="delete__comment"
                                 (click)="deleteComment(index, i)"><i class="fa-solid fa-trash icon-edit"></i>
                             </div>
                         </div>
