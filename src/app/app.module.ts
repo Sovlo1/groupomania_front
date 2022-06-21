@@ -24,7 +24,6 @@ import { UserRemoveComponent } from './user-profile/user-remove/user-remove.comp
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 import { PostListComponent } from './main-container/post-list/post-list.component';
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
-import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { FooterComponent } from './footer/footer.component';
     UserRemoveComponent,
     UserPasswordComponent,
     EditPostComponent,
-    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth$ = this.auth.auth$;
+    this.currentWindowWidth = window.innerWidth;
+    console.log(this.currentWindowWidth);
   }
 
   logout() {
