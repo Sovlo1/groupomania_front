@@ -5,15 +5,13 @@
     <span *ngIf="auth$ | async" routerLink="home">
         <img src="../../assets/images/icon-left-font-monochrome-white.svg" alt="logo de groupomania">
     </span>
-    <ul>
-        <li class="btn btn-ternary" *ngIf="!(auth$ | async) && !(router.url === '/') && currentWindowWidth > 800"
-            routerLink="signup">Inscription
+    <ul *ngIf="currentWindowWidth > 800">
+        <li class="btn btn-ternary" *ngIf="!(auth$ | async) && !(router.url === '/')" routerLink="signup">Inscription
         </li>
-        <li class="btn btn-ternary" *ngIf=" !(auth$ | async) && !(router.url==='/' ) && currentWindowWidth > 800"
-            routerLink="login">Connexion</li>
-        <li class="btn btn-ternary" (click)=" logout()" *ngIf="(auth$ | async) && currentWindowWidth > 800">Se
+        <li class="btn btn-ternary" *ngIf=" !(auth$ | async) && !(router.url==='/' )" routerLink="login">Connexion</li>
+        <li class="btn btn-ternary" (click)=" logout()" *ngIf="(auth$ | async)">Se
             déconnecter</li>
-        <li class="btn btn-ternary" *ngIf="(auth$ | async) && currentWindowWidth > 800" (click)="checkProfile()">Voir
+        <li class="btn btn-ternary" *ngIf="(auth$ | async)" (click)="checkProfile()">Voir
             le profil</li>
     </ul>
 </nav>

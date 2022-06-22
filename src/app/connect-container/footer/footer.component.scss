@@ -1,0 +1,32 @@
+.width-100 {
+    width: 100%;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.frontpage-footer {
+    height: 80px;
+    position: fixed;
+    bottom: 0px;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    li {
+        padding: 10px;
+        list-style-type: none;
+        &:hover {
+            cursor: pointer;
+        }
+        &:first-child {
+            margin-right: 10px;
+        }
+        &:last-child {
+            margin-left: 10px;
+        }
+    }
+}

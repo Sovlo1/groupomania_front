@@ -1,6 +1,17 @@
 <div *ngIf="users$ | async as user" class="user-info-box">
-    <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
-    <h2>{{ user.firstName }} </h2>
-    <h3>{{ user.lastName }} </h3>
+    <div class="d-flex nameBox">
+        <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
+        <div>
+            <h2>{{ user.firstName }} </h2>
+            <h3>{{ user.lastName }} </h3>
+        </div>
+    </div>
+    <ul *ngIf="currentWindowWidth <= 800">
+        <li class="btn btn-ternary d-flex" *ngIf="(auth$ | async)" (click)="checkProfile()"><i
+                class="fa-regular fa-id-badge"></i></li>
+        <li class="btn btn-ternary d-flex" (click)=" logout()" *ngIf="(auth$ | async)"><i
+                class="fa-solid fa-right-from-bracket"></i></li>
+
+    </ul>
 </div>
 <button class="btn btn-ternary" routerLink="new"> Poster un message!</button>

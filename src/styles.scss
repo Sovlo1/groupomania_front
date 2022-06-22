@@ -24,7 +24,6 @@ body {
 .form-group {
     display: flex;
     flex-direction: column;
-    width: 400px;
 }
 
 .flex-center {
@@ -121,4 +120,8 @@ label {
     &:hover {
         background-color: darken(#4e5166, $amount: 15);
     }
+}
+
+ul {
+    padding-inline-start: 0px;
 }

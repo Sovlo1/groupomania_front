@@ -4,6 +4,9 @@ section {
 }
 
 .posts {
+    @media screen and (max-width: 800px) {
+        margin: 0px 20px;
+    }
     display: flex;
     flex-direction: column;
     background-color: var(--ternary);
@@ -15,6 +18,9 @@ section {
         border-top-right-radius: 20px;
     }
     &:last-child {
+        @media screen and (max-width: 800px) {
+            margin: 0px 20px 90px 20px;
+        }
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         margin: 0px 0px 20px 20px;
