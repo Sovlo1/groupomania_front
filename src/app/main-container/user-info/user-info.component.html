@@ -1,9 +1,9 @@
 <div *ngIf="users$ | async as user" class="user-info-box">
     <div class="d-flex nameBox">
         <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
-        <div>
-            <h2>{{ user.firstName }} </h2>
-            <h3>{{ user.lastName }} </h3>
+        <div class="text-ellipsis">
+            <h2 class="text-ellipsis">{{ user.firstName }} </h2>
+            <h3 class="text-ellipsis">{{ user.lastName }} </h3>
         </div>
     </div>
     <ul *ngIf="currentWindowWidth <= 800">
@@ -14,4 +14,7 @@
 
     </ul>
 </div>
-<button class="btn btn-ternary" routerLink="new"> Poster un message!</button>
+<button *ngIf="currentWindowWidth > 800" class="btn btn-ternary" routerLink="new"> Poster un message!</button>
+<ul class="new-post" *ngIf="currentWindowWidth <= 800">
+    <li class="btn btn-white d-flex new-post" routerLink="new"><i class="fa-regular fa-message"></i></li>
+</ul>

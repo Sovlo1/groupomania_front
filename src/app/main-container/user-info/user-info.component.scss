@@ -12,12 +12,13 @@
         align-items: center;
         color: var(--ternary);
     }
+    position: sticky;
     display: flex;
     flex-direction: column;
-    max-width: 300px;
+    max-width: 212px;
     min-width: 150px;
     margin: 0;
-    background-color: red;
+    background-color: var(--ternary);
     border-radius: 20px;
     padding: 10px;
 }
@@ -36,11 +37,6 @@ button {
     display: block;
     margin: 20px auto;
     z-index: 25;
-    @media screen and (max-width: 800px) {
-        margin: 0px 0px 0px auto;
-        top: -100px;
-        right: 10px;
-    }
 }
 
 img {
@@ -72,5 +68,13 @@ ul {
         &:hover {
             cursor: pointer;
         }
+    }
+}
+
+.new-post {
+    position: relative;
+    @media screen and (max-width: 800px) {
+        top: -45px;
+        right: -4px;
     }
 }

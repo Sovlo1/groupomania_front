@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   DoCheck,
+  HostListener,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -38,6 +39,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   public isMod?: boolean;
   public posts$!: Observable<Post[]>;
   public defaultProfilePicture: any = '../assets/images/defaultuser.png';
+  public currentWindowWidth!: number;
 
   constructor(
     private post: PostsService,
@@ -48,7 +50,13 @@ export class PostListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
+  @HostListener('window:resize')
+  onResize() {
+    this.currentWindowWidth = window.innerWidth;
+  }
+
   ngOnInit(): void {
+    this.currentWindowWidth = window.innerWidth;
     this.isAdmin = this.auth.getAdminStatus();
     this.isMod = this.auth.getModStatus();
     this.id = this.auth.getUserId();

@@ -1,6 +1,7 @@
 .form-group {
+    color: var(--ternary);
     &:first-child {
-        margin-top: 10%;
+        margin-top: 10vh;
     }
     margin: 5px auto;
     padding: 0px 15px;
@@ -8,5 +9,6 @@
 }
 
 label {
-    font-weight: 500;
+    font-weight: 800;
+    font-size: 18px;
 }

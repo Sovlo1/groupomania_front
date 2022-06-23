@@ -43,6 +43,9 @@ body {
     &-white {
         color: var(--ternary);
         background-color: #f6f6f6;
+        &:hover {
+            color: #f6f6f6;
+        }
     }
     &:hover {
         cursor: pointer;
@@ -63,6 +66,7 @@ label {
 
 .container {
     max-width: 1200px;
+    min-width: 0px;
     margin: auto;
 }
 
@@ -124,4 +128,15 @@ label {
 
 ul {
     padding-inline-start: 0px;
+}
+
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.overflow-wrap {
+    overflow-wrap: anywhere;
 }

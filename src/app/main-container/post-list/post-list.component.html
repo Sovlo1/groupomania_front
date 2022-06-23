@@ -14,10 +14,11 @@
                 </div>
             </div>
             <div class="posts__user">
-                <div class="d-flex flex-align-center posts__user--click" (click)="goToThatProfile(post.User.id)">
+                <div class="d-flex flex-align-center posts__user--click" tabindex="0"
+                    (click)="goToThatProfile(post.User.id)">
                     <img src="{{post.User.profilePicUrl || this.defaultProfilePicture}}"
                         onerror="this.src='../assets/images/defaultuser.png'">
-                    <h2>{{ post.User.firstName}} {{ post.User.lastName}} </h2>
+                    <h2 class="overflow-wrap">{{ post.User.firstName}} {{ post.User.lastName}} </h2>
                 </div>
                 <div class="d-flex">
                     <div *ngIf="id==post.UserId || isAdmin || isMod" class="delete__post"><i
@@ -29,17 +30,17 @@
                 </div>
             </div>
             <div class="posts__content">
-                <h3>{{ post.title}}</h3>
-                <p>{{ post.content}} </p>
+                <h3 class="overflow-wrap">{{ post.title}}</h3>
+                <p class="overflow-wrap">{{ post.content}} </p>
                 <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
-                <div class="d-flex justify-space-between flex-align-center posts__content__bottom">
+                <div class="d-flex justify-space-between posts__content__bottom" [ngClass]="{'flex-column': this.currentWindowWidth <= 800,
+                                'flex-align-center': this.currentWindowWidth > 800}">
                     <div class="d-flex flex-align-center">
                         <i [ngClass]="likeStatus(i)" class="fa-star icon-regular cursor-pointer"
                             (click)="likePost(i)"></i>
-                        <p *ngIf="post.likes! <= 1">{{ post.Likes.length }} like</p>
-                        <p *ngIf="post.likes! > 1">{{ post.Likes.length }} likes</p>
+                        <p>{{ post.Likes.length }} like(s)</p>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex flex-column">
                         <p class="date">Posté le {{ post.createdAt | date}}</p>
                         <p class="date" *ngIf="post.createdAt !== post.updatedAt">(dernière édition le {{
                             post.updatedAt | date }} )</p>
@@ -62,7 +63,7 @@
                     </div>
                     <div class="comments">
                         <div class="d-flex flex-align-center justify-space-between">
-                            <div class="d-flex flex-align-center comments__user--click"
+                            <div class="d-flex flex-align-center comments__user--click overflow-wrap" tabindex="0"
                                 (click)="goToThatProfile(comment.User.id)">
                                 <img src="{{comment.User.profilePicUrl}}"
                                     onerror="this.src='../assets/images/defaultuser.png'">
@@ -72,9 +73,9 @@
                                 (click)="deleteComment(index, i)"><i class="fa-solid fa-trash icon-edit"></i>
                             </div>
                         </div>
-                        <p>{{ comment.content }} </p>
+                        <p class="overflow-wrap">{{ comment.content }} </p>
                         <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
-                        <div class="d-flex">
+                        <div class="d-flex flex-column">
                             <p class="date">Posté le {{ comment.createdAt | date}}</p>
                             <p class="date" *ngIf="comment.createdAt !== comment.updatedAt">(dernière édition le {{
                                 comment.updatedAt | date }} )</p>

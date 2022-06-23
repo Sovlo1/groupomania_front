@@ -3,13 +3,12 @@
         <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
     </div>
     <div class="user-infos">
-        <h2>{{user.firstName}}</h2>
-        <h3>{{user.lastName}}</h3>
-        <p>{{user.email}}</p>
-        <button *ngIf="authId === id || isAdmin || isMod" class="btn" routerLink="updateinfos">Modifier le
+        <h2 class="overflow-wrap">{{user.firstName}}</h2>
+        <h3 class="overflow-wrap">{{user.lastName}}</h3>
+        <button *ngIf="authId === id || isAdmin || isMod" class="btn btn-white" routerLink="updateinfos">Modifier le
             profil</button>
-        <button *ngIf="authId === id || isAdmin" class="btn" routerLink="delete">Supprimer le compte</button>
-        <button *ngIf="authId === id || isAdmin" class="btn" routerLink="updatepassword">Modifier le mot de
+        <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="delete">Supprimer le compte</button>
+        <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="updatepassword">Modifier le mot de
             passe</button>
     </div>
 </div>
