@@ -33,10 +33,11 @@
 }
 
 button {
-    position: relative;
+    position: sticky;
     display: block;
     margin: 20px auto;
     z-index: 25;
+    top: 100px;
 }
 
 img {

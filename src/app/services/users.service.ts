@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, tap } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject, tap } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 })
 export class UsersService {
   users$ = new Subject<User>();
+  loggedUser$ = new ReplaySubject<User>(1);
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,16 @@ export class UsersService {
       .pipe(
         tap((user: User) => {
           this.users$.next(user);
+        })
+      );
+  }
+
+  getLoggedUserInfos(id: string) {
+    return this.http
+      .get<User>('http://localhost:3000/api/auth/about/' + id)
+      .pipe(
+        tap((user: User) => {
+          this.loggedUser$.next(user);
         })
       );
   }

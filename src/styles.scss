@@ -60,6 +60,14 @@ input {
     border-radius: 3px;
 }
 
+textarea {
+    font-family: "Lato", sans-serif;
+    border: 1px solid rgba(187, 187, 187, 0.438);
+    padding: 10px 10px;
+    border-radius: 3px;
+    resize: vertical;
+}
+
 label {
     margin: 0px 0px 5px 5px;
 }
@@ -72,6 +80,7 @@ label {
 
 .background-leave-form {
     position: fixed;
+    z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
@@ -79,11 +88,16 @@ label {
     background-color: rgba(29, 29, 29, 0.733);
 }
 
+.sticky-form-container {
+    margin: 0 15px;
+}
+
 .sticky-form {
-    background-color: purple;
+    background-color: white;
+    color: var(--ternary);
     padding: 20px;
     border-radius: 15px;
-    margin: 100px auto;
+    margin: 20vh auto;
     max-width: 700px;
     input {
         width: 100%;

@@ -109,7 +109,6 @@ export class AuthService {
       .post<User>(`http://localhost:3000/api/auth/loggeduser`, { token: token })
       .pipe(
         tap((user: User) => {
-          console.log(user);
           this.user$.next(user);
           if (user) {
             this.auth$.next(true);

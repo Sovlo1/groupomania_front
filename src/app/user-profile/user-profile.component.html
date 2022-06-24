@@ -1,6 +1,9 @@
-<div *ngIf="users$ | async as user" class="container">
+<div *ngIf="users$ | async as user" class="container" [ngClass]="{'d-flex': currentWindowWidth <= 800,
+                                                                  'flex-column': currentWindowWidth <= 800,
+                                                                  'flex-align-center': currentWindowWidth <= 800  }">
     <div class="profile-picture">
-        <img src="{{user.profilePicUrl}}" onerror="this.src='../assets/images/defaultuser.png'">
+        <img class="this-profile-image" src="{{user.profilePicUrl}}"
+            onerror="this.src='../assets/images/defaultuser.png'">
     </div>
     <div class="user-infos">
         <h2 class="overflow-wrap">{{user.firstName}}</h2>
@@ -10,6 +13,27 @@
         <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="delete">Supprimer le compte</button>
         <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="updatepassword">Modifier le mot de
             passe</button>
+    </div>
+    <div *ngIf="loggedUser$ | async as loggedUser" class="footer-container">
+        <div *ngIf="currentWindowWidth <= 800" class="d-flex justify-space-between flex-align-center footer-mobile">
+            <div class="d-flex text-ellipsis">
+                <img class="your-profile-image" src="{{loggedUser.profilePicUrl}}"
+                    onerror="this.src='../assets/images/defaultuser.png'">
+                <div class="text-ellipsis">
+                    <h2 class="text-ellipsis">{{ loggedUser.firstName }} </h2>
+                    <h3 class="text-ellipsis">{{ loggedUser.lastName }} </h3>
+                </div>
+            </div>
+            <div *ngIf="currentWindowWidth <= 800">
+                <ul class="d-flex">
+                    <li class="btn btn-ternary d-flex" tabindex="0" (click)="checkProfile()"><i
+                            class="fa-regular fa-id-badge"></i>
+                    </li>
+                    <li class="btn btn-ternary d-flex" tabindex="0" (click)="logout()"><i
+                            class="fa-solid fa-right-from-bracket"></i></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <router-outlet></router-outlet>

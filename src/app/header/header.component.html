@@ -11,7 +11,7 @@
         <li class="btn btn-ternary" *ngIf=" !(auth$ | async) && !(router.url==='/' )" routerLink="login">Connexion</li>
         <li class="btn btn-ternary" tabindex="0" (click)=" logout()" *ngIf="(auth$ | async)">Se
             déconnecter</li>
-        <li class="btn btn-ternary" tabindex="0" *ngIf="(auth$ | async)" (click)="checkProfile()">Voir
-            le profil</li>
+        <li class="btn btn-ternary" tabindex="0" *ngIf="(auth$ | async)" (click)="checkProfile()">
+            Votre profil</li>
     </ul>
 </nav>

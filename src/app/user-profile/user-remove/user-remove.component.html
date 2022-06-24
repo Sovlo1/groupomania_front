@@ -1,11 +1,14 @@
 <div class="background-leave-form" (click)="leaveForm()">
-    <div class="sticky-form" (click)="stayOnForm($event)">
-        <form [formGroup]="deleteUser" (ngSubmit)="submit()">
-            <div class="form-group-new-post flex-center">
-                <label>Mot de passe</label>
-                <input type="password" formControlName="password">
-            </div>
-            <button class="btn">Êtes vous sur de vouloir supprimer le compte? Cette action est irreversible!</button>
-        </form>
+    <div class="sticky-form-container">
+        <div class="sticky-form" (click)="stayOnForm($event)">
+            <form [formGroup]="deleteUser" (ngSubmit)="submit()">
+                <div class="form-group-new-post flex-center">
+                    <label>Mot de passe</label>
+                    <input type="password" formControlName="password">
+                </div>
+                <button class="btn btn-ternary">Êtes vous sur de vouloir supprimer le compte? Cette action est
+                    irreversible!</button>
+            </form>
+        </div>
     </div>
 </div>
