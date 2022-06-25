@@ -8,11 +8,19 @@
     <div class="user-infos">
         <h2 class="overflow-wrap">{{user.firstName}}</h2>
         <h3 class="overflow-wrap">{{user.lastName}}</h3>
-        <button *ngIf="authId === id || isAdmin || isMod" class="btn btn-white" routerLink="updateinfos">Modifier le
-            profil</button>
-        <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="delete">Supprimer le compte</button>
-        <button *ngIf="authId === id || isAdmin" class="btn btn-white" routerLink="updatepassword">Modifier le mot de
-            passe</button>
+        <p class="overflow-wrap">{{user.bio}}</p>
+        <div class="d-flex flex-column flex-align-center">
+            <button *ngIf="authId === id || isAdmin || isMod" class="btn btn-white"
+                [ngClass]="{'btn-profile': currentWindowWidth <= 800}" routerLink="updateinfos">Modifier le
+                profil</button>
+            <button *ngIf="authId === id || isAdmin" class="btn btn-white"
+                [ngClass]="{'btn-profile': currentWindowWidth <= 800}" routerLink="delete">Supprimer le
+                compte</button>
+            <button *ngIf="authId === id || isAdmin" class="btn btn-white"
+                [ngClass]="{'btn-profile': currentWindowWidth <= 800}" routerLink="updatepassword">Modifier le mot
+                de
+                passe</button>
+        </div>
     </div>
     <div *ngIf="loggedUser$ | async as loggedUser" class="footer-container">
         <div *ngIf="currentWindowWidth <= 800" class="d-flex justify-space-between flex-align-center footer-mobile">

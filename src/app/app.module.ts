@@ -16,7 +16,6 @@ import { MainContainerComponent } from './main-container/main-container.componen
 import { UserInfoComponent } from './main-container/user-info/user-info.component';
 import { NewPostComponent } from './main-container/new-post/new-post.component';
 import { Interceptor } from './http.interceptor';
-import { AuthGuard } from './services/auth-guard.service';
 import { ConnectContainerComponent } from './connect-container/connect-container.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserUpdateComponent } from './user-profile/user-update/user-update.component';
@@ -25,6 +24,7 @@ import { UserPasswordComponent } from './user-profile/user-password/user-passwor
 import { PostListComponent } from './main-container/post-list/post-list.component';
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
 import { FooterComponent } from './connect-container/footer/footer.component';
+import { AuthGuardGuard } from './services/auth-guard.guard';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,7 @@ import { FooterComponent } from './connect-container/footer/footer.component';
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-    AuthGuard,
+    AuthGuardGuard,
   ],
   bootstrap: [AppComponent],
 })

@@ -20,7 +20,7 @@ section {
     }
     &:last-child {
         @media screen and (max-width: 800px) {
-            margin: 0px 10px 90px 10px;
+            margin: 0px 10px 100px 10px;
         }
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
@@ -184,5 +184,11 @@ input {
             opacity: 100%;
             transition: 1s;
         }
+    }
+}
+
+.icon-hover {
+    &:hover {
+        color: var(--light-accent);
     }
 }

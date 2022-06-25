@@ -2,19 +2,19 @@
     <div class="sticky-form-container">
         <div class="sticky-form" (click)="stayOnForm($event)">
             <form [formGroup]="modifyUserInfos" (ngSubmit)="submit()">
-                <div class="form-group-new-post flex-center">
+                <div class="form-group-new-post d-flex flex-column flex-center">
                     <label>Prénom</label>
                     <input type="text" formControlName="firstName">
                 </div>
-                <div class="form-group-new-post flex-center">
+                <div class="form-group-new-post d-flex flex-column flex-center">
                     <label>Nom</label>
                     <input type="text" formControlName="lastName">
                 </div>
-                <div class="form-group-new-post flex-center">
-                    <label>Email</label>
-                    <input type="email" formControlName="email">
+                <div class="form-group-new-post d-flex flex-column flex-center">
+                    <label>Bio</label>
+                    <textarea formControlName="bio" rows="3"></textarea>
                 </div>
-                <div class="form-group-new-post flex-center">
+                <div class="form-group-new-post d-flex flex-column flex-center">
                     <label>Image</label>
                     <input type="file" (change)="newFile($event)">
                 </div>

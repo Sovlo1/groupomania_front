@@ -37,7 +37,7 @@ export class UserUpdateComponent implements OnInit {
     this.modifyUserInfos = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', Validators.required],
+      bio: [''],
       file: [null],
     });
     this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
@@ -49,7 +49,7 @@ export class UserUpdateComponent implements OnInit {
         this.modifyUserInfos = this.formBuilder.group({
           firstName: [user.firstName, Validators.required],
           lastName: [user.lastName, Validators.required],
-          email: [user.email, Validators.required],
+          bio: [user.bio],
           file: [null],
         });
       });
@@ -73,7 +73,7 @@ export class UserUpdateComponent implements OnInit {
     const updatedUser = new User();
     updatedUser.firstName = this.modifyUserInfos.get('firstName')!.value;
     updatedUser.lastName = this.modifyUserInfos.get('lastName')!.value;
-    updatedUser.email = this.modifyUserInfos.get('email')!.value;
+    updatedUser.bio = this.modifyUserInfos.get('bio')!.value;
     this.users
       .modifyUser(
         updatedUser,

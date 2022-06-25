@@ -129,6 +129,7 @@ label {
 }
 
 .icon-regular {
+    transition: 1s;
     margin: 2px;
 }
 
@@ -153,4 +154,8 @@ ul {
 
 .overflow-wrap {
     overflow-wrap: anywhere;
+}
+
+.text-align {
+    text-align: center;
 }

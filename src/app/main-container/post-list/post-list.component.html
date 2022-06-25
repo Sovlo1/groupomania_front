@@ -36,7 +36,7 @@
                 <div class="d-flex justify-space-between posts__content__bottom" [ngClass]="{'flex-column': this.currentWindowWidth <= 800,
                                 'flex-align-center': this.currentWindowWidth > 800}">
                     <div class="d-flex flex-align-center">
-                        <i [ngClass]="likeStatus(i)" class="fa-star icon-regular cursor-pointer"
+                        <i [ngClass]="likeStatus(i)" class="fa-star icon-regular icon-hover cursor-pointer"
                             (click)="likePost(i)"></i>
                         <p>{{ post.Likes.length }} like(s)</p>
                     </div>

@@ -10,4 +10,5 @@ export class User {
   createdAt?: string;
   updatedAt?: string;
   deletedAt?: string | null;
+  bio?: string;
 }
