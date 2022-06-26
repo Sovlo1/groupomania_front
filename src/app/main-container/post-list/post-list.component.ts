@@ -25,6 +25,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PostListComponent implements OnInit, OnDestroy {
   public postId?: number;
+  public commentId?: number;
   public newCommentForm!: FormGroup;
   public postIndex!: number;
   public commentIndex?: number;
@@ -205,6 +206,25 @@ export class PostListComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  postImage(index: number) {
+    this.postId = this.postList[index].id;
+    this.router.navigate(['post/image/' + this.postId], {
+      relativeTo: this.route,
+    });
+    console.log('pouet');
+    console.log(index);
+  }
+
+  commentImage(index: number, i: number) {
+    this.commentId = this.postList[i].Comments![index].id;
+    this.router.navigate(['comment/image/' + this.commentId], {
+      relativeTo: this.route,
+    });
+    console.log('pouet');
+    console.log(index);
+    console.log(this.commentId);
   }
 
   ngOnDestroy(): void {}

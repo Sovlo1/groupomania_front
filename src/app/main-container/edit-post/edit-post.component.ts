@@ -16,7 +16,6 @@ export class EditPostComponent implements OnInit {
   public file!: File;
   public id!: string;
   public postList!: Post[];
-  public test: number = 1;
 
   constructor(
     private router: Router,

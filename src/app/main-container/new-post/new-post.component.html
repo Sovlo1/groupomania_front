@@ -4,11 +4,11 @@
             <form [formGroup]="newPostForm" (ngSubmit)="submit()">
                 <div class="form-group-new-post flex-center">
                     <label>Titre</label>
-                    <input type="text" formControlName="title">
+                    <input type="text" (keyup)="saveTitle()" formControlName="title">
                 </div>
                 <div class="form-group-new-post flex-center">
                     <label>Message</label>
-                    <textarea formControlName="content" rows="3"></textarea>
+                    <textarea formControlName="content" (keyup)="saveContent()" rows="3"></textarea>
                 </div>
                 <div class="form-group-new-post flex-center">
                     <label>Image/vidéo</label>

@@ -1,4 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgPipesModule } from 'ngx-pipes';
+import { LinkyModule } from 'ngx-linky';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -25,6 +27,8 @@ import { PostListComponent } from './main-container/post-list/post-list.componen
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
 import { FooterComponent } from './connect-container/footer/footer.component';
 import { AuthGuardGuard } from './services/auth-guard.guard';
+import { PostImageComponent } from './main-container/post-image/post-image.component';
+import { CommentImageComponent } from './main-container/comment-image/comment-image.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +47,16 @@ import { AuthGuardGuard } from './services/auth-guard.guard';
     UserPasswordComponent,
     EditPostComponent,
     FooterComponent,
+    PostImageComponent,
+    CommentImageComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     ReactiveFormsModule,
     HttpClientModule,
+    NgPipesModule,
+    LinkyModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },

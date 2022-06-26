@@ -1,0 +1,38 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Post } from 'src/app/models/post.model';
+import { CommentsService } from 'src/app/services/comments.service';
+import { PostsService } from 'src/app/services/posts.service';
+
+@Component({
+  selector: 'app-comment-image',
+  templateUrl: './comment-image.component.html',
+  styleUrls: ['./comment-image.component.scss'],
+})
+export class CommentImageComponent implements OnInit {
+  public comment$!: Observable<Comment[]>;
+  public id!: string;
+  public image!: string;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private comment: CommentsService
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.id = paramMap.get('id')!;
+    });
+    console.log(this.id);
+    this.comment.getSingleComment(this.id).subscribe((comment) => {
+      console.log(comment);
+      this.image = comment.fileUrl!;
+    });
+  }
+
+  leaveForm(): void {
+    this.router.navigate(['../home']);
+  }
+}

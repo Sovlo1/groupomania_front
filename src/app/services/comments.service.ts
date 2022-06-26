@@ -8,6 +8,8 @@ import { Post } from '../models/post.model';
   providedIn: 'root',
 })
 export class CommentsService {
+  comment$ = new Subject<Comment>();
+
   constructor(private http: HttpClient) {}
 
   addComment(comment: Comment, postId: number | undefined, file: File) {
@@ -29,5 +31,15 @@ export class CommentsService {
       'http://localhost:3000/api/comment/delete',
       options
     );
+  }
+
+  getSingleComment(id: string) {
+    return this.http
+      .get<Comment>('http://localhost:3000/api/comment/' + id)
+      .pipe(
+        tap((comment: Comment) => {
+          this.comment$.next(comment);
+        })
+      );
   }
 }

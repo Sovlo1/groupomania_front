@@ -16,5 +16,6 @@
 </div>
 <button *ngIf="currentWindowWidth > 800" class="btn btn-ternary" routerLink="new"> Poster un message!</button>
 <ul class="new-post" *ngIf="currentWindowWidth <= 800">
-    <li class="btn btn-white d-flex new-post" routerLink="new"><i class="fa-regular fa-message"></i></li>
+    <li class="btn btn-white d-flex new-post new-post-mobile" routerLink="new"><i class="fa-regular fa-message"></i>
+    </li>
 </ul>

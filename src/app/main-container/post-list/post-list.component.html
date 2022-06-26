@@ -30,9 +30,10 @@
                 </div>
             </div>
             <div class="posts__content">
-                <h3 class="overflow-wrap">{{ post.title}}</h3>
-                <p class="overflow-wrap">{{ post.content}} </p>
-                <img *ngIf="post.fileUrl !== null" src="{{ post.fileUrl }}" alt="">
+                <h3 class="overflow-wrap" [innerHTML]="post.title! | linky"></h3>
+                <p class="overflow-wrap pre-wrap" [innerHTML]="post.content! | linky"></p>
+                <img (click)="postImage(i)" class="cursor-pointer" *ngIf="post.fileUrl !== null"
+                    src="{{ post.fileUrl }}" alt="">
                 <div class="d-flex justify-space-between posts__content__bottom" [ngClass]="{'flex-column': this.currentWindowWidth <= 800,
                                 'flex-align-center': this.currentWindowWidth > 800}">
                     <div class="d-flex flex-align-center">
@@ -65,7 +66,7 @@
                         <div class="d-flex flex-align-center justify-space-between">
                             <div class="d-flex flex-align-center comments__user--click overflow-wrap" tabindex="0"
                                 (click)="goToThatProfile(comment.User.id)">
-                                <img src="{{comment.User.profilePicUrl}}"
+                                <img class="posts__comments__profile--image" src="{{comment.User.profilePicUrl}}"
                                     onerror="this.src='../assets/images/defaultuser.png'">
                                 <h4>{{ comment.User.firstName }} {{ comment.User.lastName}} </h4>
                             </div>
@@ -73,8 +74,9 @@
                                 (click)="deleteComment(index, i)"><i class="fa-solid fa-trash icon-edit"></i>
                             </div>
                         </div>
-                        <p class="overflow-wrap">{{ comment.content }} </p>
-                        <img *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
+                        <p class="overflow-wrap pre-wrap" [innerHTML]="comment.content! | linky"></p>
+                        <img (click)="commentImage(index, i)" class="posts__comments__image cursor-pointer"
+                            *ngIf="comment.fileUrl !== null" src="{{ comment.fileUrl }}" alt="">
                         <div class="d-flex flex-column">
                             <p class="date">Posté le {{ comment.createdAt | date}}</p>
                             <p class="date" *ngIf="comment.createdAt !== comment.updatedAt">(dernière édition le {{

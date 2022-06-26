@@ -11,6 +11,8 @@ import { UserPasswordComponent } from './user-profile/user-password/user-passwor
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
 import { DataGuardGuard } from './services/data-guard.guard';
 import { AuthGuardGuard } from './services/auth-guard.guard';
+import { PostImageComponent } from './main-container/post-image/post-image.component';
+import { CommentImageComponent } from './main-container/comment-image/comment-image.component';
 
 export const ROUTES: Routes = [
   {
@@ -29,6 +31,8 @@ export const ROUTES: Routes = [
     children: [
       { path: 'new', component: NewPostComponent },
       { path: 'edit/:id', component: EditPostComponent },
+      { path: 'post/image/:id', component: PostImageComponent },
+      { path: 'comment/image/:id', component: CommentImageComponent },
     ],
   },
   {

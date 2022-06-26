@@ -103,7 +103,16 @@ section {
             border-radius: 15px;
             text-align: center;
         }
-        img {
+        &__image {
+            object-fit: cover;
+            max-width: 150px;
+            max-height: 200px;
+            margin-top: 5px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+        &__profile--image {
             width: 28px;
             height: 28px;
             border-radius: 14px;
@@ -159,7 +168,11 @@ section {
 }
 
 img {
-    max-width: 100%;
+    object-fit: cover;
+    max-width: 500px;
+    max-height: 400px;
+    width: 100%;
+    height: auto;
     border-radius: 15px;
 }
 

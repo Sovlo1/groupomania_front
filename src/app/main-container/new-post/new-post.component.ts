@@ -15,19 +15,17 @@ export class NewPostComponent implements OnInit {
   public newPostForm!: FormGroup;
   public file!: File;
   public postList!: Post[];
-  // private postList!: Post[];
 
   constructor(
     private formBuilder: FormBuilder,
     private post: PostsService,
-    private router: Router,
-    private auth: AuthService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.newPostForm = this.formBuilder.group({
-      title: [null, [Validators.required]],
-      content: [null, Validators.required],
+      title: [window.sessionStorage.getItem('title'), [Validators.required]],
+      content: [window.sessionStorage.getItem('content'), Validators.required],
       file: [null],
     });
   }
@@ -51,10 +49,25 @@ export class NewPostComponent implements OnInit {
       .then(() => this.router.navigate([uri]));
   }
 
+  saveTitle() {
+    window.sessionStorage.setItem(
+      'title',
+      this.newPostForm.get('title')!.value
+    );
+  }
+
+  saveContent() {
+    window.sessionStorage.setItem(
+      'content',
+      this.newPostForm.get('content')!.value
+    );
+  }
+
   submit(): void {
     const newPost = new Post();
     newPost.title = this.newPostForm.get('title')!.value;
     newPost.content = this.newPostForm.get('content')!.value;
+    window.sessionStorage.clear();
     this.post
       .addPost(newPost, this.newPostForm.get('file')!.value)
       .pipe(

@@ -3,6 +3,15 @@
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: var(--secondary);
+    &:hover {
+        color: var(--light-accent);
+        transition: 1s;
+    }
+}
+
 body {
     font-family: "Lato", sans-serif;
     color: #f6f6f6;
@@ -124,6 +133,10 @@ label {
     flex-direction: column;
 }
 
+.margin-auto {
+    margin: auto;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -158,4 +171,8 @@ ul {
 
 .text-align {
     text-align: center;
+}
+
+.pre-wrap {
+    white-space: pre-wrap;
 }
