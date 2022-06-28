@@ -71,8 +71,8 @@ export class AuthService {
   addUser(
     email: string,
     password: string,
-    firstName: string,
-    lastName: string
+    lastName: string,
+    firstName: string
   ) {
     return this.http.post<{ message: string }>(
       'http://localhost:3000/api/auth/signup',

@@ -41,6 +41,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   public posts$!: Observable<Post[]>;
   public defaultProfilePicture: any = '../assets/images/defaultuser.png';
   public currentWindowWidth!: number;
+  public image?: string;
 
   constructor(
     private post: PostsService,
@@ -85,6 +86,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   postComment(index: number) {
+    this.image = undefined;
     this.commentIndex = index;
     this.newComment = true;
     this.postId = this.postList[index].id;
@@ -97,6 +99,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   newFile(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
     this.newCommentForm.get('file')!.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   editPost(index: number) {

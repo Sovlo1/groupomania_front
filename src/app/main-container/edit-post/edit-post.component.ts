@@ -16,6 +16,7 @@ export class EditPostComponent implements OnInit {
   public file!: File;
   public id!: string;
   public postList!: Post[];
+  public image?: string;
 
   constructor(
     private router: Router,
@@ -37,6 +38,7 @@ export class EditPostComponent implements OnInit {
     this.post.getSinglePost(this.id).subscribe((post) => {
       console.log(post);
       if (post[0].fileUrl) {
+        this.image = post[0].fileUrl;
         this.editPostForm = this.formBuilder.group({
           title: [post[0].title, [Validators.required]],
           content: [post[0].content, Validators.required],
@@ -63,6 +65,11 @@ export class EditPostComponent implements OnInit {
   newFile(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
     this.editPostForm.get('file')!.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   submit() {

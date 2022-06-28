@@ -94,9 +94,15 @@
                         <label>Message</label>
                         <input type="text" formControlName="content">
                     </div>
-                    <div class="form-group-new-post flex-center">
-                        <label>Image/vidéo</label>
-                        <input type="file" (change)="newFile($event)">
+                    <div class="form-group-new-post flex-center d-flex flex-column">
+                        <div>
+                            <label for="comment-image-upload" class="cursor-pointer file-input"><i
+                                    class="fa-regular fa-image"></i>
+                                Ajouter une
+                                image</label>
+                            <input id="comment-image-upload" type="file" (change)="newFile($event)">
+                        </div>
+                        <img [src]="this.image" *ngIf="this.image" class="file-view" />
                     </div>
                     <button class="btn">Envoyer!</button>
                 </form>

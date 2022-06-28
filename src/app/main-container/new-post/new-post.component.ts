@@ -15,6 +15,7 @@ export class NewPostComponent implements OnInit {
   public newPostForm!: FormGroup;
   public file!: File;
   public postList!: Post[];
+  public image?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,6 +42,11 @@ export class NewPostComponent implements OnInit {
   newFile(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
     this.newPostForm.get('file')!.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   redirectTo(uri: string) {

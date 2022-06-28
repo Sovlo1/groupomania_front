@@ -16,6 +16,7 @@ export class UserInfoComponent implements OnInit {
   public userInfos!: User;
   public auth$!: Observable<boolean>;
   public currentWindowWidth!: number;
+  public image?: string;
 
   constructor(
     private users: UsersService,

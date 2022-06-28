@@ -176,3 +176,18 @@ ul {
 .pre-wrap {
     white-space: pre-wrap;
 }
+
+.file-view {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-input:hover {
+    transition: 1s;
+    color: var(--light-accent);
+}

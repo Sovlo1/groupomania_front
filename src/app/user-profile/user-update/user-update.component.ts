@@ -24,6 +24,7 @@ export class UserUpdateComponent implements OnInit {
   public firstName?: string;
   public lastName?: string;
   public email?: string;
+  public image?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +60,11 @@ export class UserUpdateComponent implements OnInit {
   newFile(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
     this.modifyUserInfos.get('file')!.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   leaveForm(): void {

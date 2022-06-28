@@ -32,19 +32,15 @@ export class SignupComponent implements OnInit {
     const password = this.signupForm.get('password')!.value;
     const lastName = this.signupForm.get('lastName')!.value;
     const firstName = this.signupForm.get('firstName')!.value;
+    console.log(email, password, lastName, firstName);
     this.auth
       .addUser(email, password, lastName, firstName)
       .pipe(
         switchMap(() => this.auth.logUser(email, password)),
         tap(() => {
           this.router.navigate(['../home/']);
-        }),
-        catchError((error) => {
-          return error;
         })
       )
-      .subscribe((error) => {
-        console.log('hein' + error);
-      });
+      .subscribe();
   }
 }

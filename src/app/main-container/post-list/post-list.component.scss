@@ -205,3 +205,9 @@ input {
         color: var(--light-accent);
     }
 }
+
+.file-view {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}
