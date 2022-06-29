@@ -191,3 +191,15 @@ input[type="file"] {
     transition: 1s;
     color: var(--light-accent);
 }
+
+.alert-dark-bg {
+    color: var(--secondary);
+}
+
+.cursor-not-allowed:hover {
+    cursor: not-allowed;
+}
+
+.border-invalid {
+    border: 2px solid var(--primary);
+}

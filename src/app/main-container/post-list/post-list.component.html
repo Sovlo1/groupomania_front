@@ -91,8 +91,18 @@
             <div *ngIf="newComment && commentIndex === i">
                 <form [formGroup]="newCommentForm" (ngSubmit)="submitComment()">
                     <div class="form-group-new-post flex-center">
-                        <label>Message</label>
-                        <input type="text" formControlName="content">
+                        <div class="d-flex justify-space-between">
+                            <label>Message</label>
+                            <div class="cursor-pointer" (click)="closeComment()"><i
+                                    class="fa-solid fa-xmark icon-edit"></i></div>
+                        </div>
+                        <input type="text" formControlName="content" id="comment"
+                            [ngClass]="{'border-invalid': newCommentForm.controls['content'].invalid && ((newCommentForm.controls['content'].dirty || newCommentForm.controls['content'].touched))}">
+                        <div *ngIf="newCommentForm.controls['content'].invalid && (newCommentForm.controls['content'].dirty || newCommentForm.controls['content'].touched)"
+                            class="alert-dark-bg">
+                            <div *ngIf="newCommentForm.controls['content'].errors?.['minlength']">Votre commentaire doit
+                                faire 2 caractères minimum</div>
+                        </div>
                     </div>
                     <div class="form-group-new-post flex-center d-flex flex-column">
                         <div>
@@ -104,7 +114,8 @@
                         </div>
                         <img [src]="this.image" *ngIf="this.image" class="file-view" />
                     </div>
-                    <button class="btn">Envoyer!</button>
+                    <button [disabled]="!newCommentForm.valid" [ngClass]="{'cursor-not-allowed': !newCommentForm.valid}"
+                        class="btn">Envoyer!</button>
                 </form>
             </div>
         </div>

@@ -23,7 +23,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
 })
-export class PostListComponent implements OnInit, OnDestroy {
+export class PostListComponent implements OnInit {
   public postId?: number;
   public commentId?: number;
   public newCommentForm!: FormGroup;
@@ -63,7 +63,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isMod = this.auth.getModStatus();
     this.id = this.auth.getUserId();
     this.newCommentForm = this.formBuilder.group({
-      content: [null, Validators.required],
+      content: ['', [Validators.required, Validators.minLength(2)]],
       file: [null],
     });
     this.posts$ = this.post.posts$;
@@ -91,9 +91,14 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.newComment = true;
     this.postId = this.postList[index].id;
     this.newCommentForm = this.formBuilder.group({
-      content: ['', Validators.required],
+      content: ['', [Validators.required, Validators.minLength(2)]],
       file: [null],
     });
+  }
+
+  closeComment() {
+    this.newComment = false;
+    this.commentIndex = undefined;
   }
 
   newFile(event: Event) {
@@ -193,7 +198,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.router.navigate(['./profile/' + id]);
   }
 
-  submitComment() {
+  submitComment(): any {
     const newComment = new Comment();
     newComment.content = this.newCommentForm.get('content')!.value;
     this.comment
@@ -233,6 +238,4 @@ export class PostListComponent implements OnInit, OnDestroy {
     console.log(index);
     console.log(this.commentId);
   }
-
-  ngOnDestroy(): void {}
 }
