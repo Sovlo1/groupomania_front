@@ -6,7 +6,7 @@ import {
   ParamMap,
   Router,
 } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -25,6 +25,8 @@ export class UserUpdateComponent implements OnInit {
   public lastName?: string;
   public email?: string;
   public image?: string;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,6 +92,10 @@ export class UserUpdateComponent implements OnInit {
         tap(async () => {
           this.router.navigate(['../profile/' + this.id]);
           this.users.getUserInfos(this.id!).subscribe();
+        }),
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();

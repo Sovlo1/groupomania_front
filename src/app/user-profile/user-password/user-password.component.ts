@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -16,6 +16,8 @@ export class UserPasswordComponent implements OnInit {
   public id?: string;
   public user!: User;
   public changePassword!: FormGroup;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,8 +32,15 @@ export class UserPasswordComponent implements OnInit {
     this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
       this.changePassword = this.formBuilder.group({
-        password: ['', Validators.required],
-        newPassword: ['', Validators.required],
+        password: ['', [Validators.required]],
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(20),
+          ],
+        ],
       });
       this.users.getUserInfos(this.id).subscribe((user) => {
         this.user = user;
@@ -60,6 +69,10 @@ export class UserPasswordComponent implements OnInit {
           this.users.getUserInfos(this.id!).subscribe((user) => {
             this.user = user;
           });
+        }),
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();

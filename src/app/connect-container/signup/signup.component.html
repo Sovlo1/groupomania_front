@@ -1,19 +1,50 @@
 <form [formGroup]="signupForm" (ngSubmit)="submit()">
     <div class="form-group">
         <label>Email</label>
-        <input type="email" formControlName="email">
+        <input type="email" formControlName="email" id="email"
+            [ngClass]="{'border-invalid': signupForm.controls['email'].invalid && ((signupForm.controls['email'].dirty || signupForm.controls['email'].touched))}">
+        <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="signupForm.controls['email'].errors?.['required']">Vous devez saisir une adresse email
+            </div>
+            <div *ngIf="signupForm.controls['email'].errors?.['email']">Veuillez saisir une adresse email valide</div>
+        </div>
     </div>
     <div class="form-group">
         <label>Nom</label>
-        <input type="text" formControlName="lastName">
+        <input type="text" formControlName="lastName" id="lastName"
+            [ngClass]="{'border-invalid': signupForm.controls['lastName'].invalid && ((signupForm.controls['lastName'].dirty || signupForm.controls['lastName'].touched))}">
+        <div *ngIf="signupForm.controls['lastName'].invalid && (signupForm.controls['lastName'].dirty || signupForm.controls['lastName'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="signupForm.controls['lastName'].errors?.['required']">Veuillez saisir votre nom
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label>Prénom</label>
-        <input type="text" formControlName="firstName">
+        <input type="text" formControlName="firstName" id="firstName"
+            [ngClass]="{'border-invalid': signupForm.controls['firstName'].invalid && ((signupForm.controls['firstName'].dirty || signupForm.controls['firstName'].touched))}">
+        <div *ngIf="signupForm.controls['firstName'].invalid && (signupForm.controls['firstName'].dirty || signupForm.controls['firstName'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="signupForm.controls['firstName'].errors?.['required']">Veuillez saisir votre prénom
+            </div>
+        </div>
     </div>
     <div class="form-group">
-        <label>Mot de passe</label>
-        <input type="password" formControlName="password">
+        <label>Mot de passe (entre 6 et 20 caractères)</label>
+        <input type="password" formControlName="password" id="password"
+            [ngClass]="{'border-invalid': signupForm.controls['password'].invalid && ((signupForm.controls['password'].dirty || signupForm.controls['password'].touched))}">
+        <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="signupForm.controls['password'].errors?.['required']">Veuillez saisir un mot de passe
+            </div>
+            <div *ngIf="signupForm.controls['password'].errors?.['minlength']">Mot de passe trop court
+            </div>
+            <div *ngIf="signupForm.controls['password'].errors?.['maxlength']">Mot de passe trop long
+            </div>
+        </div>
+        <div class="alert-light-bg margin-auto" *ngIf="error">{{errorLog}}</div>
     </div>
-    <button class="btn btn-white">S'inscrire</button>
+    <button [disabled]="!signupForm.valid" [ngClass]="{'cursor-not-allowed': !signupForm.valid,
+    'btn-disabled-dark': !signupForm.valid}" class="btn btn-ternary">S'inscrire</button>
 </form>

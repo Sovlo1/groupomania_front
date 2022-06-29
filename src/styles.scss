@@ -134,6 +134,7 @@ label {
 }
 
 .margin-auto {
+    display: block;
     margin: auto;
 }
 
@@ -196,10 +197,22 @@ input[type="file"] {
     color: var(--secondary);
 }
 
+.alert-light-bg {
+    color: var(--primary);
+}
+
 .cursor-not-allowed:hover {
     cursor: not-allowed;
 }
 
 .border-invalid {
     border: 2px solid var(--primary);
+}
+
+.btn-disabled-light {
+    background-color: rgb(129, 129, 129);
+}
+
+.btn-disabled-dark {
+    background-color: rgb(207, 207, 207);
 }

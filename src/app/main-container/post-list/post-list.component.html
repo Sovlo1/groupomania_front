@@ -102,6 +102,8 @@
                             class="alert-dark-bg">
                             <div *ngIf="newCommentForm.controls['content'].errors?.['minlength']">Votre commentaire doit
                                 faire 2 caractères minimum</div>
+                            <div *ngIf="newCommentForm.controls['content'].errors?.['required']">Votre commentaire ne
+                                peut pas être vide</div>
                         </div>
                     </div>
                     <div class="form-group-new-post flex-center d-flex flex-column">
@@ -114,8 +116,9 @@
                         </div>
                         <img [src]="this.image" *ngIf="this.image" class="file-view" />
                     </div>
-                    <button [disabled]="!newCommentForm.valid" [ngClass]="{'cursor-not-allowed': !newCommentForm.valid}"
-                        class="btn">Envoyer!</button>
+                    <div class="alert-light-bg" *ngIf="error">{{errorLog}}</div>
+                    <button [disabled]="!newCommentForm.valid" [ngClass]="{'cursor-not-allowed': !newCommentForm.valid,
+                    'btn-disabled-light': !newCommentForm.valid}" class="btn btn-white">Envoyer!</button>
                 </form>
             </div>
         </div>

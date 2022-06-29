@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   public id?: string;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,8 +37,9 @@ export class LoginComponent implements OnInit {
         tap(() => {
           this.router.navigate(['../home/']);
         }),
-        catchError(() => {
-          return "c'est pété";
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();

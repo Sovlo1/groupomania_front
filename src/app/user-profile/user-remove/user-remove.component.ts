@@ -16,6 +16,8 @@ export class UserRemoveComponent implements OnInit {
   public id?: string;
   public user!: User;
   public deleteUser!: FormGroup;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,12 +52,16 @@ export class UserRemoveComponent implements OnInit {
     this.users
       .removeUser(this.id!, this.deleteUser.get('password')!.value)
       .pipe(
+        catchError((error): any => {
+          this.error = true;
+          console.log(error);
+          this.errorLog = error.error.error;
+        })
+      )
+      .pipe(
         tap(() => {
           this.auth.logout();
           this.router.navigate(['../../']);
-        }),
-        catchError((error) => {
-          return error;
         })
       )
       .subscribe();

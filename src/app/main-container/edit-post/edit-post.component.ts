@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -17,6 +17,8 @@ export class EditPostComponent implements OnInit {
   public id!: string;
   public postList!: Post[];
   public image?: string;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private router: Router,
@@ -85,6 +87,10 @@ export class EditPostComponent implements OnInit {
             this.postList = post.reverse();
             this.router.navigate(['../home']);
           });
+        }),
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();

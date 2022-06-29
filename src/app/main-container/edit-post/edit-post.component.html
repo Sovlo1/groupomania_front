@@ -19,6 +19,7 @@
                     </div>
                     <img [src]="this.image" *ngIf="this.image" class="file-view" />
                 </div>
+                <div class="alert-light-bg" *ngIf="error">{{errorLog}}</div>
                 <button class="btn btn-ternary">Envoyer!</button>
             </form>
         </div>

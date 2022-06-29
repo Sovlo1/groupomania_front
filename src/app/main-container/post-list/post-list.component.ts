@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { Comment } from 'src/app/models/comment.model';
@@ -42,6 +42,8 @@ export class PostListComponent implements OnInit {
   public defaultProfilePicture: any = '../assets/images/defaultuser.png';
   public currentWindowWidth!: number;
   public image?: string;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private post: PostsService,
@@ -215,6 +217,10 @@ export class PostListComponent implements OnInit {
             this.newComment = false;
             this.commentIndex = undefined;
           });
+        }),
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();

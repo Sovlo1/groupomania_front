@@ -1,11 +1,27 @@
 <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="form-group flex-center">
         <label>Email</label>
-        <input type="email" formControlName="email">
+        <input type="email" formControlName="email" id="email"
+            [ngClass]="{'border-invalid': loginForm.controls['email'].invalid && ((loginForm.controls['email'].dirty || loginForm.controls['email'].touched))}">
+        <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="loginForm.controls['email'].errors?.['required']">Vous devez saisir une adresse email
+            </div>
+            <div *ngIf="loginForm.controls['email'].errors?.['email']">Veuillez saisir une adresse email valide</div>
+        </div>
     </div>
     <div class="form-group flex-center">
         <label>Mot de passe</label>
-        <input type="password" formControlName="password">
+        <input type="password" formControlName="password" id="password"
+            [ngClass]="{'border-invalid': loginForm.controls['password'].invalid && ((loginForm.controls['password'].dirty || loginForm.controls['password'].touched))}">
+        <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+            class="alert-light-bg">
+            <div *ngIf="loginForm.controls['password'].errors?.['required']">Vous devez saisir votre mot de passe
+            </div>
+        </div>
+        <div class="alert-light-bg margin-auto" *ngIf="error">{{errorLog}}</div>
     </div>
-    <button class="btn btn-white">Se connecter</button>
+
+    <button [disabled]="!loginForm.valid" [ngClass]="{'cursor-not-allowed': !loginForm.valid,
+    'btn-disabled-dark': !loginForm.valid}" class="btn btn-ternary">Se connecter</button>
 </form>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
-import { AuthService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -16,6 +15,8 @@ export class NewPostComponent implements OnInit {
   public file!: File;
   public postList!: Post[];
   public image?: string;
+  public error: boolean = false;
+  public errorLog?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,8 +26,14 @@ export class NewPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.newPostForm = this.formBuilder.group({
-      title: [window.sessionStorage.getItem('title'), [Validators.required]],
-      content: [window.sessionStorage.getItem('content'), Validators.required],
+      title: [
+        window.sessionStorage.getItem('title'),
+        [Validators.required, Validators.minLength(2)],
+      ],
+      content: [
+        window.sessionStorage.getItem('content'),
+        [Validators.required, Validators.minLength(2)],
+      ],
       file: [null],
     });
   }
@@ -83,6 +90,10 @@ export class NewPostComponent implements OnInit {
             this.postList = post.reverse();
             this.redirectTo('../home');
           });
+        }),
+        catchError((error): any => {
+          this.error = true;
+          this.errorLog = error.error.error;
         })
       )
       .subscribe();
