@@ -52,11 +52,11 @@ body {
     &-white {
         color: var(--ternary);
         background-color: #f6f6f6;
-        &:hover {
+        &:not(.btn-disabled-dark, .btn-disabled-light):hover {
             color: #f6f6f6;
         }
     }
-    &:hover {
+    &:not(.btn-disabled-dark, .btn-disabled-light):hover {
         cursor: pointer;
         transition: 1s;
         background-color: var(--primary);

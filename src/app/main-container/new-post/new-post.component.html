@@ -31,7 +31,7 @@
                         <label for="file-upload" class="cursor-pointer file-input"><i class="fa-regular fa-image"></i>
                             Ajouter une
                             image</label>
-                        <input id="file-upload" type="file" (change)="newFile($event)">
+                        <input id="file-upload" type="file" accept="image/*" (change)="newFile($event)">
                     </div>
                     <img [src]="this.image" *ngIf="this.image" class="file-view" />
                 </div>

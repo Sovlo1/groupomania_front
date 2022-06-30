@@ -13,6 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UserRemoveComponent implements OnInit {
   public users$!: Observable<User>;
+  public userId?: string;
   public id?: string;
   public user!: User;
   public deleteUser!: FormGroup;
@@ -28,6 +29,7 @@ export class UserRemoveComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.userId = this.auth.getUserId();
     this.users$ = this.users.users$;
     this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
@@ -59,8 +61,12 @@ export class UserRemoveComponent implements OnInit {
       )
       .pipe(
         tap(() => {
-          this.auth.logout();
-          this.router.navigate(['../../']);
+          if (this.userId == this.id) {
+            this.auth.logout();
+            this.router.navigate(['../../']);
+          } else {
+            this.router.navigate(['../home']);
+          }
         })
       )
       .subscribe();

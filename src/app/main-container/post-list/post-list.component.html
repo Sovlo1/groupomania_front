@@ -112,7 +112,7 @@
                                     class="fa-regular fa-image"></i>
                                 Ajouter une
                                 image</label>
-                            <input id="comment-image-upload" type="file" (change)="newFile($event)">
+                            <input id="comment-image-upload" type="file" accept="image/*" (change)="newFile($event)">
                         </div>
                         <img [src]="this.image" *ngIf="this.image" class="file-view" />
                     </div>
