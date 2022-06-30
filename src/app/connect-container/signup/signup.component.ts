@@ -41,7 +41,6 @@ export class SignupComponent implements OnInit {
     const password = this.signupForm.get('password')!.value;
     const lastName = this.signupForm.get('lastName')!.value;
     const firstName = this.signupForm.get('firstName')!.value;
-    console.log(email, password, lastName, firstName);
     this.auth
       .addUser(email, password, lastName, firstName)
       .pipe(

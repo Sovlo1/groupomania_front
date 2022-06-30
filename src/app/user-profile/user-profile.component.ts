@@ -38,9 +38,7 @@ export class UserProfileComponent implements OnInit {
     this.authId = this.auth.getUserId();
     this.users$ = this.users.users$;
     this.loggedUser$ = this.users.loggedUser$;
-    this.users.getLoggedUserInfos(this.authId!).subscribe((user) => {
-      console.log(user);
-    });
+    this.users.getLoggedUserInfos(this.authId!).subscribe();
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
       this.users.getUserInfos(this.id).subscribe();

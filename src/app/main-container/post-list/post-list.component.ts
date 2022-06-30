@@ -71,7 +71,6 @@ export class PostListComponent implements OnInit {
     this.posts$ = this.post.posts$;
     this.post.getPosts().subscribe((post) => {
       this.postList = post.reverse();
-      console.log(post);
     });
   }
 
@@ -129,7 +128,6 @@ export class PostListComponent implements OnInit {
     return this.post.getPosts().subscribe((post) => {
       this.post.posts$;
       this.postList = post.reverse();
-      console.log(this.postList);
     });
   }
 
@@ -143,7 +141,6 @@ export class PostListComponent implements OnInit {
     this.deleteIndex = index;
     this.postIndex = i;
     this.commentIndex = index;
-    console.log(this.commentIndex, this.postIndex);
   }
 
   cancelCommentDelete() {
@@ -155,7 +152,6 @@ export class PostListComponent implements OnInit {
       this.postList[this.postIndex].Comments![this.deleteIndex].userId;
     const commentId =
       this.postList[this.postIndex].Comments![this.deleteIndex].id;
-    console.log(userId, commentId);
     if (this.id == userId || this.isAdmin || this.isMod) {
       this.comment
         .deleteComment(userId, commentId)
@@ -163,7 +159,6 @@ export class PostListComponent implements OnInit {
           tap(() => {
             this.post.getPosts().subscribe((post) => {
               this.postList = post.reverse();
-              console.log(post);
             });
           })
         )
@@ -179,7 +174,6 @@ export class PostListComponent implements OnInit {
   confirmPostDelete() {
     const userId = this.postList[this.deleteIndex].UserId;
     const postId = this.postList[this.deleteIndex].id;
-    console.log('allo ', userId, postId);
     if (this.id == userId || this.isAdmin || this.isMod) {
       this.post
         .deletePost(userId, postId)
@@ -187,7 +181,6 @@ export class PostListComponent implements OnInit {
           tap(() => {
             this.post.getPosts().subscribe((post) => {
               this.postList = post.reverse();
-              console.log(post);
             });
           })
         )
@@ -213,7 +206,6 @@ export class PostListComponent implements OnInit {
         tap(async () => {
           this.post.getPosts().subscribe((post) => {
             this.postList = post.reverse();
-            console.log(post);
             this.newComment = false;
             this.commentIndex = undefined;
           });
@@ -231,8 +223,6 @@ export class PostListComponent implements OnInit {
     this.router.navigate(['post/image/' + this.postId], {
       relativeTo: this.route,
     });
-    console.log('pouet');
-    console.log(index);
   }
 
   commentImage(index: number, i: number) {
@@ -240,8 +230,5 @@ export class PostListComponent implements OnInit {
     this.router.navigate(['comment/image/' + this.commentId], {
       relativeTo: this.route,
     });
-    console.log('pouet');
-    console.log(index);
-    console.log(this.commentId);
   }
 }

@@ -29,8 +29,8 @@ export class EditPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.editPostForm = this.formBuilder.group({
-      title: [null, [Validators.required]],
-      content: [null, Validators.required],
+      title: [null, [Validators.required, Validators.minLength(2)]],
+      content: [null, [Validators.required, Validators.minLength(2)]],
       file: [null],
     });
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -38,18 +38,29 @@ export class EditPostComponent implements OnInit {
     });
     this.post$ = this.post.post$;
     this.post.getSinglePost(this.id).subscribe((post) => {
-      console.log(post);
       if (post[0].fileUrl) {
         this.image = post[0].fileUrl;
         this.editPostForm = this.formBuilder.group({
-          title: [post[0].title, [Validators.required]],
-          content: [post[0].content, Validators.required],
+          title: [
+            post[0].title,
+            [Validators.required, Validators.minLength(2)],
+          ],
+          content: [
+            post[0].content,
+            [Validators.required, Validators.minLength(2)],
+          ],
           file: [null],
         });
       } else {
         this.editPostForm = this.formBuilder.group({
-          title: [post[0].title, [Validators.required]],
-          content: [post[0].content, Validators.required],
+          title: [
+            post[0].title,
+            [Validators.required, Validators.minLength(2)],
+          ],
+          content: [
+            post[0].content,
+            [Validators.required, Validators.minLength(2)],
+          ],
           file: [null],
         });
       }

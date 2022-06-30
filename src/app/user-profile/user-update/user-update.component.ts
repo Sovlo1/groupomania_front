@@ -45,10 +45,8 @@ export class UserUpdateComponent implements OnInit {
     });
     this.activatedRoute.parent!.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
-      console.log(this.id);
       this.users$ = this.users.users$;
       this.users.getUserInfos(this.id).subscribe((user) => {
-        console.log(user);
         this.modifyUserInfos = this.formBuilder.group({
           firstName: [user.firstName, Validators.required],
           lastName: [user.lastName, Validators.required],

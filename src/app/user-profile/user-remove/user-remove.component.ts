@@ -54,7 +54,6 @@ export class UserRemoveComponent implements OnInit {
       .pipe(
         catchError((error): any => {
           this.error = true;
-          console.log(error);
           this.errorLog = error.error.error;
         })
       )

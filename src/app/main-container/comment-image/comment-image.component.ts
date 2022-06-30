@@ -25,9 +25,7 @@ export class CommentImageComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('id')!;
     });
-    console.log(this.id);
     this.comment.getSingleComment(this.id).subscribe((comment) => {
-      console.log(comment);
       this.image = comment.fileUrl!;
     });
   }

@@ -16,7 +16,7 @@
             <button *ngIf="authId === id || isAdmin" class="btn btn-white"
                 [ngClass]="{'btn-profile': currentWindowWidth <= 800}" routerLink="delete">Supprimer le
                 compte</button>
-            <button *ngIf="authId === id || isAdmin" class="btn btn-white"
+            <button *ngIf="authId === id || isAdmin || isMod" class="btn btn-white"
                 [ngClass]="{'btn-profile': currentWindowWidth <= 800}" routerLink="updatepassword">Modifier le mot
                 de
                 passe</button>

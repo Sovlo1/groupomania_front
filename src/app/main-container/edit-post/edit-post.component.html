@@ -4,11 +4,27 @@
             <form [formGroup]="editPostForm" (ngSubmit)="submit()">
                 <div class="form-group-new-post flex-center">
                     <label>Titre</label>
-                    <input type="text" formControlName="title">
+                    <input type="text" formControlName="title" id="title"
+                        [ngClass]="{'border-invalid': editPostForm.controls['title'].invalid && ((editPostForm.controls['title'].dirty || editPostForm.controls['title'].touched))}">
+                    <div *ngIf="editPostForm.controls['title'].invalid && (editPostForm.controls['title'].dirty || editPostForm.controls['title'].touched)"
+                        class="alert-light-bg">
+                        <div *ngIf="editPostForm.controls['title'].errors?.['minlength']">Votre titre doit
+                            faire 2 caractères minimum</div>
+                        <div *ngIf="editPostForm.controls['title'].errors?.['required']">Votre message doit contenir un
+                            titre</div>
+                    </div>
                 </div>
-                <div class="form-group-new-post flex-center">
+                <div class="form-group-new-post d-flex flex-column flex-center">
                     <label>Message</label>
-                    <input type="text" formControlName="content">
+                    <textarea type="text" rows="3" formControlName="content" id="post"
+                        [ngClass]="{'border-invalid': editPostForm.controls['content'].invalid && ((editPostForm.controls['content'].dirty || editPostForm.controls['content'].touched))}"></textarea>
+                    <div *ngIf="editPostForm.controls['content'].invalid && (editPostForm.controls['content'].dirty || editPostForm.controls['content'].touched)"
+                        class="alert-light-bg">
+                        <div *ngIf="editPostForm.controls['content'].errors?.['minlength']">Votre message doit
+                            faire 2 caractères minimum</div>
+                        <div *ngIf="editPostForm.controls['content'].errors?.['required']">Votre message ne
+                            peut pas être vide</div>
+                    </div>
                 </div>
                 <div class="form-group-new-post flex-center d-flex flex-column">
                     <div>
@@ -20,7 +36,9 @@
                     <img [src]="this.image" *ngIf="this.image" class="file-view" />
                 </div>
                 <div class="alert-light-bg" *ngIf="error">{{errorLog}}</div>
-                <button class="btn btn-ternary">Envoyer!</button>
+                <button [disabled]="!editPostForm.valid" [ngClass]="{'cursor-not-allowed': !editPostForm.valid,
+                                                                'btn-disabled-dark': !editPostForm.valid}"
+                    class="btn btn-ternary">Envoyer!</button>
             </form>
         </div>
     </div>
