@@ -10,7 +10,6 @@ import { UserRemoveComponent } from './user-profile/user-remove/user-remove.comp
 import { UserPasswordComponent } from './user-profile/user-password/user-password.component';
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
 import { DataGuardGuard } from './services/data-guard.guard';
-import { AuthGuardGuard } from './services/auth-guard.guard';
 import { PostImageComponent } from './main-container/post-image/post-image.component';
 import { CommentImageComponent } from './main-container/comment-image/comment-image.component';
 
@@ -27,7 +26,7 @@ export const ROUTES: Routes = [
   {
     path: 'home',
     component: MainContainerComponent,
-    canActivate: [DataGuardGuard, AuthGuardGuard],
+    canActivate: [DataGuardGuard],
     children: [
       { path: 'new', component: NewPostComponent },
       { path: 'edit/:id', component: EditPostComponent },
@@ -38,7 +37,7 @@ export const ROUTES: Routes = [
   {
     path: 'profile/:id',
     component: UserProfileComponent,
-    canActivate: [DataGuardGuard, AuthGuardGuard],
+    canActivate: [DataGuardGuard],
     children: [
       { path: 'updateinfos', component: UserUpdateComponent },
       { path: 'delete', component: UserRemoveComponent },

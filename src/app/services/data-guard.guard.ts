@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -17,20 +18,7 @@ export class DataGuardGuard implements CanActivate {
   public token: string | null = window.localStorage.getItem('userToken');
   public helper = new JwtHelperService();
 
-  constructor(private auth: AuthService) {}
-
-  // canActivate(): Observable<true> {
-  //   return this.auth.user$.pipe(
-  //     first(),
-  //     switchMap((user: User | null): Observable<true> => {
-  //       if (!user) {
-  //         return this.auth.fetchCurrentUser(this.token).pipe(map(() => true));
-  //       } else {
-  //         return of(true);
-  //       }
-  //     })
-  //   );
-  // }
+  constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(): Observable<true> {
     return this.auth.user$.pipe(
@@ -43,6 +31,7 @@ export class DataGuardGuard implements CanActivate {
           if (!isTokenExpired) {
             return this.auth.fetchCurrentUser(this.token).pipe(map(() => true));
           } else {
+            this.router.navigateByUrl('/');
             return of(true);
           }
         } else {

@@ -26,7 +26,6 @@ import { UserPasswordComponent } from './user-profile/user-password/user-passwor
 import { PostListComponent } from './main-container/post-list/post-list.component';
 import { EditPostComponent } from './main-container/edit-post/edit-post.component';
 import { FooterComponent } from './connect-container/footer/footer.component';
-import { AuthGuardGuard } from './services/auth-guard.guard';
 import { PostImageComponent } from './main-container/post-image/post-image.component';
 import { CommentImageComponent } from './main-container/comment-image/comment-image.component';
 
@@ -61,7 +60,6 @@ import { CommentImageComponent } from './main-container/comment-image/comment-im
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-    AuthGuardGuard,
   ],
   bootstrap: [AppComponent],
 })
