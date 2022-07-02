@@ -33,7 +33,6 @@ export class UserInfoComponent implements OnInit {
     this.auth$ = this.auth.auth$;
     this.users$ = this.users.users$;
     this.currentWindowWidth = window.innerWidth;
-    console.log(this.currentWindowWidth);
     this.id = this.auth.getUserId();
     this.users.getUserInfos(this.id!).subscribe();
   }
