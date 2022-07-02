@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Comment installer l'application
 
-Cloner l'application, puis exécuter `npm i` depuis la racine du projet afin d'installer toutes les dépendances requises.
+Cloner le projet, puis exécuter `npm i` depuis la racine du projet afin d'installer toutes les dépendances requises.
 
 ## Lancer l'application
 
