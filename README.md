@@ -9,3 +9,4 @@ Cloner le projet, puis exécuter `npm i` depuis la racine du projet afin d'insta
 ## Lancer l'application
 
 Exécuter `npm start` ou `ng serve` depuis la racine du projet.
+Une fois la compilation terminée, l'application se trouvera à l'adresse suivante: `http://localhost:4200`
