@@ -1,9 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
-import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-header',
