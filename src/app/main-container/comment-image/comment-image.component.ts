@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/models/post.model';
 import { CommentsService } from 'src/app/services/comments.service';
-import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-comment-image',

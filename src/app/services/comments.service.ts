@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, tap } from 'rxjs';
 import { Comment } from '../models/comment.model';
-import { Post } from '../models/post.model';
 
 @Injectable({
   providedIn: 'root',

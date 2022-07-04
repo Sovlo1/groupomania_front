@@ -1,16 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  HostListener,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChange,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, catchError, Observable, Subject, tap } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { Comment } from 'src/app/models/comment.model';
