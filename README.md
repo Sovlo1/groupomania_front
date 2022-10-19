@@ -1,6 +1,7 @@
 # Groupomania Front
 <img src="https://i.imgur.com/M4FoPs7.png" />
 
+Les informations concernant la partie backend du projet [se trouvent ici](https://github.com/Sovlo1/groupomania_back)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
